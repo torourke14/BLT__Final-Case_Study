@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: query
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: query
+  template:
+    metadata:
+      labels:
+        app: query
+    spec:
+      containers:
+        - name: query
+          image: nagabhushanamn/query
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: query-clusterip-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: query
+  ports:
+    - name: query
+      port: 4002
+      protocol: TCP
+      targetPort: 4002

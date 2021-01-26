@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moderate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moderate
+  template:
+    metadata:
+      labels:
+        app: moderate
+    spec:
+      containers:
+        - name: moderate
+          image: nagabhushanamn/moderate
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: moderate-clusterip-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: moderate
+  ports:
+    - name: moderate
+      port: 4003
+      protocol: TCP
+      targetPort: 4003
