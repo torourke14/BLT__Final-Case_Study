@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import Header from './components/Header'
 import SignUp from "./components/SignUp"
 import NewTicket from "./components/NewTicket"
 import './App.css';
@@ -6,6 +6,7 @@ import './App.css';
 function App() {
   return (
     <div>
+		<Header></Header>
 		<SignUp></SignUp>
 		<NewTicket></NewTicket>
     </div>

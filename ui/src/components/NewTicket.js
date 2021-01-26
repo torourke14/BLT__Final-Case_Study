@@ -36,7 +36,7 @@ const NewTicket = () => {
           		    onChange={(e) => setPrice(e.target.value)}
                 />
             </div>
-            <button className="btn btn-primary" disabled={!validateForm()}> Sign Up </button>
+            <button className="btn btn-primary" disabled={!validateForm()}> Submit </button>
         </form>
     );
 };
