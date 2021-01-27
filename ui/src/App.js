@@ -18,9 +18,17 @@ import {
 
 function App() {
   return (
-    <div>
-        <TicketTimer />
-    </div>
+    <Router>
+      <div>
+          <Header/>
+          <Switch>
+            <Route path="/" component={TicketList} exact/>
+            <Route path="/signup" component={SignUp}/>
+            <Route path="/signin" component={SignIn}/>
+            <Route path="/selltickets" component={NewTicket}/>
+          </Switch>
+      </div>
+    </Router>
   );
 }
 
