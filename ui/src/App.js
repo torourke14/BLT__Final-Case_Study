@@ -30,9 +30,6 @@ function App() {
             <Route path="/selltickets" component={NewTicket}/>
           </Switch>
       </div>
-      <div>
-        <OrderList />
-      </div>
     </Router>
     
   );
