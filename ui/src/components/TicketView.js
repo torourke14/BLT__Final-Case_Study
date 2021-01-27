@@ -6,13 +6,23 @@ import Header from './Header';
 
 const TicketView = (ticket) => {
     console.log(ticket.value)
+    const renderBuyBtn = () => {
+        if (ticket.available){
+            return (
+                <button>Purchase</button>
+            )
+        }else{
+            return (
+                <button>Unavailable</button>
+            )
+        }
+    }
     return (
         <div>
-            <p>{ticket.value.title}</p>
+            <h1>{ticket.value.title}</h1>
             <p>{ticket.value.price}</p>
         </div>
     )
-
 }
 
 export default TicketView;

@@ -9,18 +9,20 @@ import Header from './Header';
 const TicketPurchase = (ticket) => {
 
     const renderBuyBtn = () => {
-        if (ticket.status == "Available"){
+        if (ticket.available){
             return (
                 <button>Purchase</button>
+            )
+        }else{
+            return (
+                <button>Unavailable</button>
             )
         }
     }
     return (
         <div>
-            <Header />
             <h1>{ticket.title}</h1>
             <h2>{ticket.price}</h2>
-            <h3>Status: {ticket.status}</h3>
             <span>{renderBuyBtn()}</span>
         </div>
 

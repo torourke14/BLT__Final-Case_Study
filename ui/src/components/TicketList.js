@@ -8,8 +8,8 @@ import Header from './Header';
 const TicketList = () => {
 
     const tickets = [
-        {title: 'bball', price: 40, userId: 'asdf', orderId: 'asdf'},
-        {title: 'concert', price: 50, userId: 'asdf', orderId: 'asdf'},
+        {title: 'bball', price: 40, userId: 'asdf', orderId: 'asdf', available: true},
+        {title: 'concert', price: 50, userId: 'asdf', orderId: 'asdf', available: false},
         ]
     // const dispatch = useDispatch();
 
