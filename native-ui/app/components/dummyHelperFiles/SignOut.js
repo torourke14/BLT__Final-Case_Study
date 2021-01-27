@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, Text} from 'react-native'
-
+import Screen from '../Screen'
 /**
  * SignOut
  * @description: Dummy file just used to help with tab navigation
@@ -8,9 +8,9 @@ import {View, Text} from 'react-native'
  */
 const SignOut = () => {
     return (
-        <View>
+        <Screen>
             <Text>Sign out page!</Text>
-        </View>
+        </Screen>
     )
 }
 

@@ -1,18 +1,20 @@
 import React from 'react'
-import {View, Text} from 'react-native'
+import {View, Text, Button} from 'react-native'
+import Title from '../components/Title'
+import Screen from '../components/Screen'
+const TicketDetailScreen = ({route}) => {
+    const ticket = route.params
 
-const TicketDetailScreen = () => {
     return (
-        <View>
-            <Text>Viewing details of tacos</Text>
-            <Text>Viewing details of tacos</Text>
-            <Text>Viewing details of tacos</Text>
-            <Text>Viewing details of tacos</Text>
-            <Text>Viewing details of tacos</Text>
-            <Text>Viewing details of tacos</Text>
-            <Text>Viewing details of tacos</Text>
-            
-        </View>
+        <Screen>
+            <Title title={ticket.title}/>
+            <Text>Price - ${ticket.price}</Text>
+            <Text>Status - Available</Text>
+            <Button 
+                title="Purchase"
+                color="#841584"
+            />
+        </Screen>
     )
 }
 

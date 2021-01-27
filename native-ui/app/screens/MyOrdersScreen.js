@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, Text} from 'react-native'
-
+import Screen from '../components/Screen'
 /**
  * MyOrdersScreen
  * @description: Screen that renders a users order history
@@ -8,9 +8,9 @@ import {View, Text} from 'react-native'
  */
 const MyOrdersScreen = () => {
     return (
-        <View>
+        <Screen>
             <Text>My Orders Page!</Text>
-        </View>
+        </Screen>
     )
 }
 
