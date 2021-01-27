@@ -1,15 +1,21 @@
 import React, {useState} from "react" 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Router, Link } from "react-router-dom";
 
-function SignIn() {
+function SignIn(props) {
+
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+
+	console.log(props)
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
 
 		//BACKEND - post user request goes here
 		console.log(email, password);
+
+		props.checkLogin(true)
 	}
 
 	const validateForm = () => {
@@ -37,7 +43,10 @@ function SignIn() {
 				onChange={(e) => setPassword(e.target.value)}
         	/>
       	</div>
-    	<button className="btn btn-primary" disabled={!validateForm()}> Sign In </button>
+		
+			<button className="btn btn-primary" disabled={!validateForm()}> Sign In </button>
+		
+    	
     </form>
   );
 }

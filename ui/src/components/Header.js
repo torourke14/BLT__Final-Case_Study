@@ -3,10 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Link } from 'react-router-dom';
 
-const Header = () => {
+const Header = (props) => {
 
     //have to see if user is sign in or out to choose which header to display
-    let user = false;
+    let {user} = props;
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
