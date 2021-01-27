@@ -8,8 +8,8 @@ const TicketView = (ticket) => {
     console.log(ticket.value)
     return (
         <div>
-            <span>{ticket.value.title}</span>
-            <span>{ticket.value.price}</span>
+            <p>{ticket.value.title}</p>
+            <p>{ticket.value.price}</p>
         </div>
     )
 
