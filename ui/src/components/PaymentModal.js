@@ -29,7 +29,7 @@ const PaymentModal = (props) => {
             </Form>
         </ModalBody>
         <ModalFooter>
-
+                <Button>Submit</Button>
         </ModalFooter>
       </Modal>
     </div>

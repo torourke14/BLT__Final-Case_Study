@@ -25,7 +25,7 @@ function App() {
       <div>
           <Header/>
           <Switch>
-            <Route path="/" component={TicketList} exact/>
+            <Route path="/" component={TicketPurchase} exact/>
             <Route path="/signup" component={SignUp}/>
             <Route path="/signin" component={SignIn}/>
             <Route path="/selltickets" component={NewTicket}/>
