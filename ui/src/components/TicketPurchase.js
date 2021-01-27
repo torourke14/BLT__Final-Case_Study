@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { render } from 'react-dom';
 import Header from './Header';
+import PaymentModal from './PaymentModal';
 
 // import * as api from '../../../api'
 
@@ -12,8 +14,7 @@ const TicketPurchase = (/*ticket*/) => { //THIS SHOULD TAKE A TICKET AS INPUT
         if (ticket.available){
             return (
                 <div>
-                    <p> Status - Available</p>
-                    <button>Purchase</button>
+                    <PaymentModal/>
                 </div>
             )
         }else{
@@ -26,7 +27,7 @@ const TicketPurchase = (/*ticket*/) => { //THIS SHOULD TAKE A TICKET AS INPUT
         <div>
             <h1>{ticket.title}</h1>
             <h2>{ticket.price}</h2>
-            <span>{renderBuyBtn()}</span>
+            {renderBuyBtn()}
         </div>
 
     )
