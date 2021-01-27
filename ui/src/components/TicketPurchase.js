@@ -6,12 +6,15 @@ import Header from './Header';
 
 // import { useDispatch, useSelector } from 'react-redux'
 
-const TicketPurchase = (ticket) => {
-
+const TicketPurchase = (/*ticket*/) => { //THIS SHOULD TAKE A TICKET AS INPUT 
+    const ticket = {title: 'bball', price: 40, userId: 'asdf', orderId: 'asdf', available: true}
     const renderBuyBtn = () => {
         if (ticket.available){
             return (
-                <button>Purchase</button>
+                <div>
+                    <p> Status - Available</p>
+                    <button>Purchase</button>
+                </div>
             )
         }else{
             return (

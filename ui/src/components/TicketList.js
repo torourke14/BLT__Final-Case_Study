@@ -29,7 +29,6 @@ const TicketList = () => {
 
     return (
         <div>
-            <Header />
             <div className="list-group">
                 {renderTickets()}
             </div>

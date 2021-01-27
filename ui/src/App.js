@@ -5,6 +5,7 @@ import NewTicket from "./components/NewTicket"
 import TicketList from "./components/TicketList"
 import TicketPurchase from "./components/TicketPurchase"
 import TicketView from "./components/TicketView"
+import TicketTimer from "./components/TicketTimer"
 
 import './App.css';
 
@@ -17,16 +18,9 @@ import {
 
 function App() {
   return (
-    <Router>
-      <div>
-          <Header/>
-          <Switch>
-            <Route path="/" component={TicketList} exact/>
-            <Route path="/signup" component={SignUp}/>
-            <Route path="/signin" component={SignIn}/>
-          </Switch>
-      </div>
-    </Router>
+    <div>
+        <TicketTimer />
+    </div>
   );
 }
 
