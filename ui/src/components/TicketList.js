@@ -15,7 +15,7 @@ const TicketList = () => {
     }, [])
 
     const renderTickets = () => {
-        return items.map((ticket) => {
+        return tickets.map((ticket) => {
             return (
                 <div key={ticket.id} className="">
                     <TicketView value={ticket} />
