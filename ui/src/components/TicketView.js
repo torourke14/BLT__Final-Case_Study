@@ -1,25 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Review from '../review'
+import ReviewForm from '../review-form-v2';
+import Header from './Header';
+import * as api from '../../api'
 
-function TicketView(props) {
-  return (
-    <div>
-      <table>
-        <thead>
-            <tr>
-                <th scope="col">Ticket Name</th>
-                <th scope="col">Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{props.title}</td>
-                <td>{props.price}</td>
-            </tr>
-        </tbody>
-    </table>
-      
-    </div>
-  );
+import { useDispatch, useSelector } from 'react-redux'
+
+const TicketView = ({value: ticket}) => {
+
+    return (
+        <div>
+            <span>{ticket.title}</span>
+            <span>{ticket.price}</span>
+        </div>
+    )
+
 }
 
 export default TicketView;
