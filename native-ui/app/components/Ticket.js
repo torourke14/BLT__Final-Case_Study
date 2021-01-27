@@ -1,6 +1,11 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 
+/**
+ * Ticket
+ * @description: Used in TicketListingScreen to display each row of the tickets listed
+ * 
+ */
 const Ticket = ({ticket}) => {
 
     return (
