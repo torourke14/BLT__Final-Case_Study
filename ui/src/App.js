@@ -1,4 +1,4 @@
-import Header from './components/Header'
+import Header from "./components/Header"
 import SignUp from "./components/SignUp"
 import NewTicket from "./components/NewTicket"
 import TicketList from "./components/TicketList"
@@ -10,12 +10,7 @@ import './App.css';
 function App() {
   return (
     <div>
-		<Header></Header>
-		<SignUp></SignUp>
-		<NewTicket></NewTicket>
-        <TicketList></TicketList>
-        <TicketView></TicketView>
-        <TicketPurchase></TicketPurchase>
+        <TicketList />
     </div>
   );
 }

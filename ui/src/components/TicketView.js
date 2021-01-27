@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
-import * as api from '../../../api'
+// import * as api from '../../../api'
 
-import { useDispatch, useSelector } from 'react-redux'
+// import { useDispatch, useSelector } from 'react-redux'
 
-const TicketView = ({value: ticket}) => {
-
+const TicketView = (ticket) => {
+    console.log(ticket.value)
     return (
         <div>
             <Header />
-            <span>{ticket.title}</span>
-            <span>{ticket.price}</span>
+            <span>{ticket.value.title}</span>
+            <span>{ticket.value.price}</span>
         </div>
     )
 

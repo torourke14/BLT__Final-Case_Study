@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
 
-import * as api from '../../../api'
+// import * as api from '../../../api'
 
 
-import { useDispatch, useSelector } from 'react-redux'
+// import { useDispatch, useSelector } from 'react-redux'
 
-const TicketPurchase = ({value: ticket}) => {
+const TicketPurchase = (ticket) => {
 
     const renderBuyBtn = () => {
         if (ticket.status == "Available"){
