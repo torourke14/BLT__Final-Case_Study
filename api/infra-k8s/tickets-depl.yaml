@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: posts-depl
+  name: tickets
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: posts
+      app: tickets
   template:
     metadata:
       labels:
-        app: posts
+        app: tickets
     spec:
       containers:
-        - name: posts
-          image: nagabhushanamn/posts
+        - name: tickets
+          image: tannero/tickets
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: posts-clusterip-svc
+  name: tickets-clusterip-svc
 spec:
   type: ClusterIP
   selector:
-    app: posts
+    app: tickets
   ports:
-    - name: posts
-      port: 4000
+    - name: tickets
+      port: 4001
       protocol: TCP
-      targetPort: 4000
+      targetPort: 4001

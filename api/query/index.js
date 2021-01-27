@@ -36,7 +36,7 @@ const handleEvent = (type, data) => {
   }
 };
 
-app.get('/posts', (req, res) => {
+app.get('/orders', (req, res) => {
   res.send(posts);
 });
 
@@ -47,8 +47,8 @@ app.post('/events', (req, res) => {
   res.send({});
 });
 
-app.listen(4002, async () => {
-  console.log('Listening on 4002');
+app.listen(4003, async () => {
+  console.log('Listening on 4003');
 
   const res = await axios.get('http://event-bus-clusterip-svc:4005/events');
 

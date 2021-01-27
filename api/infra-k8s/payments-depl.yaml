@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: moderate
+  name: payments
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: moderate
+      app: payments
   template:
     metadata:
       labels:
-        app: moderate
+        app: payments
     spec:
       containers:
-        - name: moderate
-          image: nagabhushanamn/moderate
+        - name: payments
+          image: tannero/payments
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: moderate-clusterip-svc
+  name: payments-clusterip-svc
 spec:
   type: ClusterIP
   selector:
-    app: moderate
+    app: payments
   ports:
-    - name: moderate
-      port: 4003
+    - name: payments
+      port: 4002
       protocol: TCP
-      targetPort: 4003
+      targetPort: 4002

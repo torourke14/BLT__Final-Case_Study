@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: comments
+  name: orders-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: comments
+      app: orders
   template:
     metadata:
       labels:
-        app: comments
+        app: orders
     spec:
       containers:
-        - name: comments
-          image: nagabhushanamn/comments
+        - name: orders
+          image: tannero/orders
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: comments-clusterip-svc
+  name: orders-clusterip-svc
 spec:
   type: ClusterIP
   selector:
-    app: comments
+    app: orders
   ports:
-    - name: comments
-      port: 4001
+    - name: orders
+      port: 4000
       protocol: TCP
-      targetPort: 4001
+      targetPort: 4000
