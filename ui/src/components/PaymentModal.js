@@ -24,12 +24,14 @@ const PaymentModal = (props) => {
                 </FormGroup>
                 <FormGroup>
                     <Label for="examplePassword">Expiration</Label>
-                    <Input type="date" placeholder="10/08/1996" />
+                    <Input type="month" placeholder="10/08/1996" />
                 </FormGroup>
             </Form>
         </ModalBody>
         <ModalFooter>
                 <Button>Submit</Button>
+                <Button onClick = {toggle}>Cancel</Button>
+
         </ModalFooter>
       </Modal>
     </div>
