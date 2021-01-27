@@ -7,7 +7,7 @@ const Stack = createStackNavigator()
 
 const TicketListNavigator = () => (
     <Stack.Navigator mode="modal">
-        <Stack.Screen name="Tickets" component={TicketListingScreen} />
+        <Stack.Screen name="Tickets" component={TicketListingScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="TicketDetails" component={TicketDetailScreen}/>
     </Stack.Navigator>
 )

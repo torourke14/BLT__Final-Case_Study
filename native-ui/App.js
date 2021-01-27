@@ -5,11 +5,12 @@ import AppNavigator from './app/navigation/AppNavigator';
 import TicketListingScreen from './app/screens/TicketListingScreen';
 import navigationTheme from "./app/navigation/navigationTheme";
 import { navigationRef } from "./app/navigation/rootNavigation";
+import AuthNavigator from './app/navigation/AuthNavigator';
 
 export default function App() {
   return (
     <NavigationContainer ref={navigationRef} theme={navigationTheme}>
-       <AppNavigator />
+      <AuthNavigator />
     </NavigationContainer>
   );
 }
