@@ -10,7 +10,7 @@ import './App.css';
 function App() {
   return (
     <div>
-        <TicketList />
+        <TicketView> </TicketView>
     </div>
   );
 }
