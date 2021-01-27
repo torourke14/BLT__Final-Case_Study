@@ -30,7 +30,7 @@ const TicketListingScreen = ({navigation}) => {
                 
                     return (
                         <TouchableOpacity 
-                            onPress={() => navigation.navigate(routes.TICKET_DETAILS)}
+                            onPress={() => navigation.navigate(routes.TICKET_DETAILS, item)}
                         >
                             <Ticket ticket={item} />
                         </TouchableOpacity>
