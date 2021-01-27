@@ -1,45 +1,27 @@
+/*
+index.js
+@Author Sean Edwards
+@Version 20212701
+
+User sign up/in/out authentication program for StubHub clone.
+*/
+
+//Dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
-const { randomBytes } = require('crypto');
-const cors = require('cors');
-const axios = require('axios');
+const currentUserRouter = require('./routes/currentuser');
+const userSignUpRouter = require('./routes/signup');
+const userSignInRouter = require('./routes/signin');
+const userSignOutRouter = require('./routes/signout');
 
+//Router setup
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
-
-const posts = {};
-
-app.get('/posts', (req, res) => {
-  res.send(posts);
-});
-
-app.post('/posts/create', async (req, res) => {
-  const id = randomBytes(4).toString('hex');
-  const { title } = req.body;
-
-  posts[id] = {
-    id,
-    title
-  };
-
-  await axios.post('http://event-bus-clusterip-svc:4005/events', {
-    type: 'PostCreated',
-    data: {
-      id,
-      title
-    }
-  });
-
-  res.status(201).send(posts[id]);
-});
-
-app.post('/events', (req, res) => {
-  console.log('Received Event', req.body.type);
-
-  res.send({});
-});
+app.use(currentUserRouter);
+app.use(userSignUpRouter);
+app.use(userSignInRouter);
+app.use(userSignOutRouter);
 
 app.listen(5000, () => {
-  console.log('Listening on 5000');
+  console.log('Listening in on port 5000!');
 });
