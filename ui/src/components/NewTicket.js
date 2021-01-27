@@ -8,7 +8,7 @@ const NewTicket = () => {
 	const onSubmit = (event) => {
 		event.preventDefault();
 
-		//BACKEND - post ticket request goes here
+		//BACKEND - post ticket would request goes here
 		console.log(title, price);
 	}
 
@@ -32,6 +32,7 @@ const NewTicket = () => {
                 <label> Price: </label>
                 <input
                     className="form-control"
+                    type="number"
                     value={price} 
           		    onChange={(e) => setPrice(e.target.value)}
                 />
