@@ -3,6 +3,8 @@ import {FlatList, View} from 'react-native'
 import Title from '../components/Title'
 import Screen from '../components/Screen'
 import Ticket from '../components/Ticket'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import routes from '../navigation/routes'
 
 const data = [
     {id: 1, title: 'basketball game', price: 40, userId: 'user1'},
@@ -17,7 +19,7 @@ const data = [
  * @description: Lists all tickets to the screen
  * 
  */
-const TicketListingScreen = () => {
+const TicketListingScreen = ({navigation}) => {
     return (
         <Screen>
             <Title title="Tickets For Sale" />
@@ -27,7 +29,11 @@ const TicketListingScreen = () => {
                 renderItem={({item}) => {
                 
                     return (
-                        <Ticket ticket={item} />
+                        <TouchableOpacity 
+                            onPress={() => navigation.navigate(routes.TICKET_DETAILS)}
+                        >
+                            <Ticket ticket={item} />
+                        </TouchableOpacity>
                     )
                 }}
             />
