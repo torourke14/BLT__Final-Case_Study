@@ -7,7 +7,7 @@ import { View, StyleSheet, Text } from 'react-native'
  * 
  */
 const Ticket = ({ticket}) => {
-
+    
     return (
         <View style={styles.listing}>
             <Text style={styles.text}>{ticket.title} - ${ticket.price}</Text>
