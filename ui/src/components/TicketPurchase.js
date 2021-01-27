@@ -18,6 +18,7 @@ const TicketPurchase = ({value: ticket}) => {
     }
     return (
         <div>
+            <Header />
             <h1>{ticket.title}</h1>
             <h2>{ticket.price}</h2>
             <h3>Status: {ticket.status}</h3>

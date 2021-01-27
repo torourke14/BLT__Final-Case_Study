@@ -10,6 +10,7 @@ const TicketView = ({value: ticket}) => {
 
     return (
         <div>
+            <Header />
             <span>{ticket.title}</span>
             <span>{ticket.price}</span>
         </div>
