@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import TicketView from './TicketView';
 import Header from './Header';
-
 import { useSelector,useDispatch } from 'react-redux'
+import * as api from '../../../api'
 
-import * as api from '../../api'
 const TicketList = () => {
 
     const tickets = useSelector(state => state.tickets)
