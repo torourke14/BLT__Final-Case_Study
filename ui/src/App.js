@@ -6,6 +6,8 @@ import TicketList from "./components/TicketList"
 import TicketPurchase from "./components/TicketPurchase"
 import TicketView from "./components/TicketView"
 import TicketTimer from "./components/TicketTimer"
+import PaymentModal from './components/PaymentModal'
+import OrderList from "./components/OrderList"
 
 import './App.css';
 
@@ -28,7 +30,11 @@ function App() {
             <Route path="/selltickets" component={NewTicket}/>
           </Switch>
       </div>
+      <div>
+        <OrderList />
+      </div>
     </Router>
+    
   );
 }
 

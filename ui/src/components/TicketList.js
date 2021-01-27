@@ -10,13 +10,8 @@ const TicketList = () => {
     const tickets = [
         {title: 'bball', price: 40, userId: 'asdf', orderId: 'asdf', available: true},
         {title: 'concert', price: 50, userId: 'asdf', orderId: 'asdf', available: false},
-        ]
-    // const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //  whatever code gets teh dispatch data
-    // }, [])
-
+    ]
+    
     const renderTickets = () => {
         return tickets.map((ticket) => {
             return (
