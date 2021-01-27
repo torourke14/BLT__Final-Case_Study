@@ -8,7 +8,6 @@ const TicketView = (ticket) => {
     console.log(ticket.value)
     return (
         <div>
-            <Header />
             <span>{ticket.value.title}</span>
             <span>{ticket.value.price}</span>
         </div>
