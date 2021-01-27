@@ -6,7 +6,7 @@ import TicketDetailScreen from '../screens/TicketDetailScreen'
 const Stack = createStackNavigator()
 
 const TicketListNavigator = () => (
-    <Stack.Navigator mode="modal" screenOptions={{headerShown: false}}>
+    <Stack.Navigator mode="modal">
         <Stack.Screen name="Tickets" component={TicketListingScreen} />
         <Stack.Screen name="TicketDetails" component={TicketDetailScreen}/>
     </Stack.Navigator>
