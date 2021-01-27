@@ -14,9 +14,9 @@ function OrderList(props) {
     const renderOrders = () => {
         return orders.map((order) => {
             return (
-                <div key={order.id} className="">
+                <li key={order.id} className="">
                     <OrderView value={order} />
-                </div>
+                </li>
             )
         })
     }

@@ -10,14 +10,15 @@ const TicketList = () => {
     const tickets = [
         {title: 'bball', price: 40, userId: 'asdf', orderId: 'asdf', available: true},
         {title: 'concert', price: 50, userId: 'asdf', orderId: 'asdf', available: false},
-    ]
-    
+        ]
+ 
+
     const renderTickets = () => {
         return tickets.map((ticket) => {
             return (
-                <div key={ticket.id} className="">
+                <li key={ticket.id} className="">
                     <TicketView value={ticket} />
-                </div>
+                </li>
             )
         })
     }

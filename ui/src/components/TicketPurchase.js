@@ -8,8 +8,9 @@ import PaymentModal from './PaymentModal';
 
 // import { useDispatch, useSelector } from 'react-redux'
 
-const TicketPurchase = (/*ticket*/) => { //THIS SHOULD TAKE A TICKET AS INPUT 
-    const ticket = {title: 'bball', price: 40, userId: 'asdf', orderId: 'asdf', available: false}
+const TicketPurchase = (params) => { 
+    // const ticket = {title: 'bball', price: 40, userId: 'asdf', orderId: 'asdf', available: false}
+    const ticket = params.value;
     const renderBuyBtn = () => {
         if (ticket.available){
             return (
