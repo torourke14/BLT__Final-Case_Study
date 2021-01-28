@@ -9,7 +9,6 @@ const TicketPurchase = (props) => {
 
     let ticketID = props.match.params.ticketID;
     ticketID = parseInt(ticketID)
-    const history  = useHistory();
     //DO NOT CHANGE THE CODE ABOVE
 
 
