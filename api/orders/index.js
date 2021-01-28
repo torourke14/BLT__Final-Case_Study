@@ -26,6 +26,14 @@ app.get('/', (req, res) => {
         res.send(orders)
     })
 });
+app.get('/:id', (req, res) => {
+    Order.find({ticketId: req.params.id}, (err, orders) => {
+        if (err) throw err
+        console.log("Here are the orders")
+        console.log(orders)
+        res.send(orders)
+    })
+});
 app.post('/',  async (req, res) => {
     let { body } = req
  
@@ -33,8 +41,16 @@ app.post('/',  async (req, res) => {
     await order.save()
     res.status(201).json({ order })
 })
-app.post('/delete',  async (req, res) => {
-    let { body } = req
+app.post('/:id/update',  async (req, res) => {
+    let { body } = req //request is a json object for the status update e.g {"status": "Created"}
+ 
+    Order.findOneAndUpdate({ticketId: req.params.id},{$set:{...body}}, {
+        new: true
+    });
+   
+})
+app.delete('/:id',  async (req, res) => {
+    let body = { ticketId: req.params.id }
  
     const condition = { ...body}
     Order.deleteMany(condition, (err, orders) => {
@@ -47,7 +63,7 @@ app.post('/delete',  async (req, res) => {
 })
 
 const order = new Order({
-    userId: 1, status:  'pending', ticketId: 1, expiresAt: new Date()
+    userId: 1, status:  'pendin', ticketId: 1, expiresAt: new Date()
 
 })
 
