@@ -3,8 +3,9 @@ import {View, Text, StyleSheet} from 'react-native'
 import Title from '../components/Title'
 import Screen from '../components/Screen'
 import Button from '../components/AppButton'
+import routes from '../navigation/routes'
 
-const TicketDetailScreen = ({route}) => {
+const TicketDetailScreen = ({navigation, route}) => {
     const ticket = route.params
 
     return (
@@ -16,6 +17,7 @@ const TicketDetailScreen = ({route}) => {
                 <Button 
                     title="Purchase"
                     color="primary"
+                    onPress={()=>navigation.navigate(routes.PAYMENT, ticket)}
                 />
             </View>
         </Screen>
