@@ -27,6 +27,6 @@ spec:
     app: query
   ports:
     - name: query
-      port: 4003
+      port: 3500
       protocol: TCP
-      targetPort: 4003
+      targetPort: 3500

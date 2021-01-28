@@ -1,5 +1,4 @@
-/*
-signup.js
+/*signup.js
 @Author Sean Edwards
 @Version 20212701
 
@@ -8,6 +7,7 @@ Sign up router for StubHub clone.
 
 const express = require('express');
 const { body, validationResult } = require('express-validator');
+const User = require('../models/user');
 
 const router = express.Router();
 
@@ -22,18 +22,31 @@ router.post('/api/users/signup', [
             .isLength({min: 6})
             .withMessage('Password must be at least 6 characters in length!')
     ],
-    (req, res) => {
+    async (req, res) => {
         const errors = validationResult(req);
 
-        //Display errors to user
         if(!errors.isEmpty()){
-            return (res.status(400).send(errors.array()));
+            error.descriptors = errors.array();
+            throw error;
         }
         
-        const {email, password} = req.body;
-        
-        console.log('Successfully validated! User creation initiated:');
-        res.send({});
-});
+        //Query database for matching email address
+        const { email, password } = req.body;
+
+        // const existingUser = await User.findOne({ email });
+
+        // if(existingUser){
+        //     console.log("WARNING - This user email already exists in the database.");
+        //     return res.send({});
+        // }else{
+            const user = new User({email, password});
+            console.log(user);
+
+            res.status(201).send(user);
+            //Save user to database.
+            //await user.save();
+        //}
+    }
+);
 
 module.exports = router;

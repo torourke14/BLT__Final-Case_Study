@@ -1,13 +1,14 @@
 import React, {useState} from "react" 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Router, Link } from "react-router-dom";
+import { Router, Link, useHistory } from "react-router-dom";
+
 
 function SignIn(props) {
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	console.log(props)
+	let history = useHistory();
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -15,7 +16,13 @@ function SignIn(props) {
 		//BACKEND - post user request goes here
 		console.log(email, password);
 
-		props.checkLogin(true)
+		props.setUserLogin({
+			"email": email,
+			"password": password
+		})
+
+		//redirects to home page after login is successful
+		history.push("/")
 	}
 
 	const validateForm = () => {
@@ -23,6 +30,7 @@ function SignIn(props) {
 	}
 
 	return (
+	<div>
 	<form onSubmit={handleSubmit}>
     	<h1> Sign In </h1>
     	<div className="form-group">
@@ -43,11 +51,9 @@ function SignIn(props) {
 				onChange={(e) => setPassword(e.target.value)}
         	/>
       	</div>
-		
-			<button className="btn btn-primary" disabled={!validateForm()}> Sign In </button>
-		
-    	
+		<button className="btn btn-primary" disabled={!validateForm()}> Sign In </button>
     </form>
+	</div>
   );
 }
 

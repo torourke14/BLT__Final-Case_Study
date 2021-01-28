@@ -8,6 +8,7 @@ import TicketView from "./components/TicketView"
 import TicketTimer from "./components/TicketTimer"
 import PaymentModal from './components/PaymentModal'
 import OrderList from "./components/OrderList"
+import SignOut from "./components/SignOut";
 
 import React, {useState} from "react" 
 
@@ -22,13 +23,13 @@ import {
 
 function App() {
 
-  //is user logged in
-  const [user, setUser] = useState(false);
+  //sets logged in user
+  const [user, setUser] = useState("");
 
-  let checkLogin = (isUser) => {
-    setUser(isUser);
-    console.log(user);
+  let setUserLogin = (userSignin) => {
+    setUser(userSignin);
   }
+  console.log(user);
 
 
   return (
@@ -43,11 +44,18 @@ function App() {
               <SignUp/>
             </Route>
             <Route path="/signin">
-              <SignIn user={user} checkLogin={checkLogin}/>
+              <SignIn setUserLogin={setUserLogin}/>
             </Route>
-            <Route path="/selltickets">
+            <Route path="/tickets/new">
               <NewTicket/>
             </Route>
+            <Route path = "/tickets/:ticketID" render={props=> <TicketPurchase {...props}/>}/>​
+            <Route path="/myorders">
+              <OrderList/>
+            </Route>
+            <Route path="/signout">
+              <SignOut logout={setUserLogin}/>
+            </Route>​
           </Switch>
       </div>
     </Router>
