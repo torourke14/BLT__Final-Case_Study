@@ -85,8 +85,8 @@ Order.deleteMany({}, (err, orders) => {
 })
 
 
-//port for testing, change that if it does not fit in with your program
-const port = process.env.PORT || 5000;
+//the correct port according to the event bus
+const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 /**
  * 
