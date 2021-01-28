@@ -7,7 +7,8 @@ export default useAuth = () => {
     const {user, setUser} = useContext(AuthContext)
 
     const logIn = (authToken) => {
-        const user = jwtDecode(authToken)
+        // TODO: Remember to switch this back once TOKENS are getting from server
+        const user = authToken // jwtDecode(authToken)
         setUser(user)
         authStorage.storeToken(authToken)
     }
