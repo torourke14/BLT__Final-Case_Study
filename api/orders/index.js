@@ -3,44 +3,55 @@ const bodyParser = require('body-parser');
 const { randomBytes } = require('crypto');
 const cors = require('cors');
 const axios = require('axios');
-
+const {Order} = require('./ordersData');
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const posts = {};
+const mongoose = require('mongoose');
 
-app.get('/posts', (req, res) => {
-  res.send(posts);
+const uri = "mongodb+srv://Ranjani:Kardya123%23@cluster0.zxv43.mongodb.net/mydb?retryWrites=true&w=majority";
+            
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// mongoose => ODM ( object document model )
+
+// object Model
+
+app.get('/', (req, res) => {
+    Order.find({}, (err, orders) => {
+        if (err) throw err
+        console.log("Here are all the orders")
+        console.log(orders)
+        res.send(orders)
+    })
 });
+Order.deleteMany({}, (err, orders) => {
+    if (err) throw err
+    console.log("Here are all the orders")
+    console.log(orders)
+    
+})
 
-app.post('/posts/create', async (req, res) => {
-  const id = randomBytes(4).toString('hex');
-  const { title } = req.body;
+const order = new Order({
+    userId: 1, status:  'pending', ticketId: 1, expiresAt: new Date()
 
-  posts[id] = {
-    id,
-    title
-  };
+})
 
-  await axios.post('http://event-bus-clusterip-svc:4005/events', {
-    type: 'PostCreated',
-    data: {
-      id,
-      title
-    }
-  });
+order.save().then(() => {
+    console.log("new order saved");
+    // // get all customers
+})
 
-  res.status(201).send(posts[id]);
-});
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.log(`Listening on port ${port}...`));
+/**
+ * 
+ * {"_id":{"$oid":"5ff372e52917de48e1917ba1"},"name":"NAG","address":"chennai-india","__v":{"$numberInt":"0"}}
+ * 
+ */
 
-app.post('/events', (req, res) => {
-  console.log('Received Event', req.body.type);
-
-  res.send({});
-});
-
-app.listen(4000, () => {
-  console.log("v4.0.0")
-  console.log('Listening on 4000');
-});
+/*Customer.findByIdAndUpdate("5ff372e52917de48e1917ba1", { address: 'chennai' }, (err, result) => {
+    if (err) throw err;
+    console.log(result)
+})*/
