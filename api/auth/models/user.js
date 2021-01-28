@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Password  = require('../services/passwords');
 
 const userSchema = new mongoose.Schema({
     email:{
@@ -11,12 +12,14 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-const User = mongoose.model('User', userSchema);
+userSchema.pre('save', async function (done){
+    if (this.isModified('password')){
+        const hashedPw = await Password.toHash(this.get('password'));
+        this.set('password', hashedPw);
+    }
+    done();
+});
 
-//Testing mongoose User 
-// let x = new User({
-//     email: 'abc@123.com',
-//     password: '123abc'
-// });
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;

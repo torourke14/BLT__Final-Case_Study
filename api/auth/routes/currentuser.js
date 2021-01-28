@@ -1,3 +1,10 @@
+/*currentuser.js
+@Author Sean Edwards
+@Version 20212701
+
+current user information router for StubHub clone.
+*/
+
 const express = require('express');
 //const currentUser = require('@sgtickets/common');
 

@@ -33,14 +33,14 @@ const startAuth = async () => {
 
   //Try to connect to db
   try{
-    //-------------------------------------------------------------
-    //TODO: fix DB linking
-    await mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
+  
+    //Link to database
+    await mongoose.connect('mongodb+srv://root:letmein12345@e-tickets-cluster.ovpau.mongodb.net/ticket-shop?retryWrites=true&w=majority', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true
     });
-    //-------------------------------------------------------------
+
     console.log('Successfully connected to database!');
   }catch (err){
     console.error(`Error connecting to database: ${err}`);

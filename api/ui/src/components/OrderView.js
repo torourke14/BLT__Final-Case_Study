@@ -1,12 +1,12 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const OrderView = (data) => {
     let order = data.value
     return (
         <div>
-            <h1>{order.title}</h1>
-            <h2>{order.price}</h2>
-            <h3>{order.status}</h3>
+            <p> <b> {order.title} </b> - ${order.price} - {order.status} </p>
         </div>
     );
 }
