@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: moderate
-          image: tannero/moderate
+          image: tannero/expir-moderation
 
 ---
 apiVersion: v1
@@ -27,6 +27,6 @@ spec:
     app: moderate
   ports:
     - name: moderate
-      port: 4004
+      port: 4003
       protocol: TCP
-      targetPort: 4004
+      targetPort: 4003

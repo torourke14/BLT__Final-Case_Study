@@ -18,7 +18,6 @@ spec:
       	env:
          	- name: TOKEN
            	value: letmeinpleasekthxbye
-
 ---
 apiVersion: v1
 kind: Service

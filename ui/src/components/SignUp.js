@@ -1,10 +1,14 @@
 import React, {useState} from "react" 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useHistory } from "react-router-dom";
+
 
 function SignUp() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [reenterPassword, setReenterPassword] = useState("");
+
+	let history = useHistory();
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -12,6 +16,11 @@ function SignUp() {
 		if (password === reenterPassword){
 			//BACKEND - post user request goes here
 			console.log(email, password, reenterPassword);
+
+			history.push("/signin")
+		}
+		else {
+			alert("Passwords must match");	
 		}
 		
 	}
