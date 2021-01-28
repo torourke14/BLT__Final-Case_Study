@@ -17,7 +17,7 @@ const Ticket = ({ticket}) => {
                              style={globalStyles.bg}
             >
                 <Text style={globalStyles.price}>${ticket.price}</Text>
-                <Text style={globalStyles.text}>{ticket.title}</Text>
+                <Text style={globalStyles.ticketText}>{ticket.title}</Text>
             </ImageBackground>
         </View>
     )

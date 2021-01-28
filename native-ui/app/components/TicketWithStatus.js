@@ -24,7 +24,7 @@ const Ticket = ({ticket}) => {
         <View style={globalStyles.listing}>
             <Text style={globalStyles.price}>${ticket.price}</Text>
             <Text style={status}>{ticket.status}</Text>
-            <Text style={globalStyles.text}>{ticket.title}</Text>
+            <Text style={globalStyles.ticketText}>{ticket.title}</Text>
         </View>
     )
 }

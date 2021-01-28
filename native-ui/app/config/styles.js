@@ -78,11 +78,17 @@ export default {
   completed: {
     backgroundColor: colors.completed,
   },
-  text: {
-    backgroundColor: colors.light,
+  ticketText: {
+    backgroundColor: colors.highlight,
+    width: "100%",
     flex: 1,
     fontSize: 18,
-    margin: 10,
+    alignSelf: 'center',
+    textAlign: 'center',
+    marginHorizontal: 24,
+    paddingHorizontal: 24,
+    marginTop: 12,
+    marginBottom: 34,
   },
   error: {
     color: "red",
