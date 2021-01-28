@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import {useHistory} from 'react-router-dom'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap';
-import {
-    Link,
-  } from 'react-router-dom';
+
 const PaymentModal = (props) => {
     const {
         buttonLabel,
@@ -26,7 +24,7 @@ const PaymentModal = (props) => {
 	}
 
 	const validateForm = () => {
-		return cc.length==16 && exp;
+		return cc.length==19 && exp;
 	}
 
 
@@ -36,7 +34,7 @@ const PaymentModal = (props) => {
 
   return (
     <div>
-      <Button color="secondary" onClick={toggle}>Pay</Button>
+      <Button size="md" color="primary" onClick={toggle}>  Pay  </Button>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Enter your payment information to purchase ticket {ticket.id} </ModalHeader>
         <ModalBody>

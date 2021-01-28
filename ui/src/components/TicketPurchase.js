@@ -4,6 +4,9 @@ import Header from './Header';
 import PaymentModal from './PaymentModal';
 import { Router, Link, useHistory } from "react-router-dom";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 import _ from 'lodash'
 const TicketPurchase = (props) => { 
     let history = useHistory();
@@ -14,9 +17,9 @@ const TicketPurchase = (props) => {
 
     //CHANGE THE CODE BELOW FOR THE API CALL TO GET THE APPROPRIATE TICKET
     const tickets = [
-        {id:1, title: 'bball', price: 40, userId: 'asdf', orderId: 'asdf', available: true},
-        {id:2, title: 'concert', price: 50, userId: 'asdf', orderId: 'asdf', available: false},
-        {id:3, title: 'movie', price: 23, userId: 'asdf', orderId: 'asdf', available: true}
+        {id:1, title: 'Basketball', price: 40, userId: 'asdf', orderId: 'asdf', available: true},
+        {id:2, title: 'Concert', price: 50, userId: 'asdf', orderId: 'asdf', available: false},
+        {id:3, title: 'Movie', price: 23, userId: 'asdf', orderId: 'asdf', available: true}
         ]
     const ticket = _.find(tickets, {id: ticketID})
     //REPLACE THE ABOVE WITH AN API CALL
@@ -25,7 +28,7 @@ const TicketPurchase = (props) => {
 
     const renderGoBackButton = () =>{
         return (
-            <btn btn-sm btn-primary onClick={goBack}>Go Back</btn>
+            <button className="btn-sm btn-primary" onClick={goBack}>Go Back</button>
         )
     }
     const renderBuyBtn = () => {
@@ -37,18 +40,26 @@ const TicketPurchase = (props) => {
             )
         }else{
             return (
-                <button>Unavailable</button>
+                <button disabled className="btn-sm btn-secondary">Unavailable</button>
             )
         }
     }
     return (
         <div>
-            {renderGoBackButton()}
-            <h1>Ticket Purchase</h1>
-            <h1>{ticket.title}</h1>
-            <h1>{ticket.price}</h1>
-            <h1>{ticketID}</h1>
+            
+            <h1> {ticket.title} {renderGoBackButton()} </h1>
+            <ul className="list-group">
+                <li className="list-group-item"> Price - ${ticket.price}</li>
+                <li className="list-group-item"> Status - {ticket.available}</li>
+            </ul>
+            <br/>
+            
+            
+               
+            
+            
             {renderBuyBtn()}
+            
         </div>
 
     )
