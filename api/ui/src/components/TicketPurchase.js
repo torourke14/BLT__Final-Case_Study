@@ -32,14 +32,24 @@ const TicketPurchase = (props) => {
         )
     }
     const renderBuyBtn = () => {
+        if (time > 0){
             return (
                 <div>
                     <PaymentModal ticket={ticket}/>
                 </div>
             )
+        }
+        else {
+            return(
+                <div>
+                    <p> Your time has expired. Please go back to the tickets listing and try again.</p>
+                </div>
+            )
+        }
+            
     }
 
-    let [time, setTime] = useState(20);
+    let [time, setTime] = useState(3);
     useEffect(() => {
         time > 0 && setTimeout(() => setTime(time - 1), 1000);
     },[time])
@@ -58,7 +68,7 @@ const TicketPurchase = (props) => {
             {renderTimer()}
             <ul className="list-group">
                 <li className="list-group-item"> Price - ${ticket.price}</li>
-                <li className="list-group-item"> Status - {ticket.available? "Available": "Unavailable"}</li>
+                {/* <li className="list-group-item"> Status - {ticket.available? "Available": "Unavailable"}</li> */}
             </ul>
             <br/>            
             {renderBuyBtn()}            
