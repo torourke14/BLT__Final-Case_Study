@@ -27,7 +27,6 @@ function App() {
 
   let checkLogin = (isUser) => {
     setUser(isUser);
-    console.log(user);
   }
 
 
