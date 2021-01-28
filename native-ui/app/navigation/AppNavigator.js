@@ -8,6 +8,7 @@ import TicketListNavigator from './TicketListNavigator'
 import { FontAwesome } from '@expo/vector-icons'; 
 import { Entypo } from '@expo/vector-icons'; 
 import { Foundation } from '@expo/vector-icons'; 
+import LogoutScreen from '../screens/LogoutScreen'
 const Tab = createBottomTabNavigator()
 
 /**
@@ -47,7 +48,7 @@ const AppNavigator = () => {
             />
             <Tab.Screen 
                 name="SignOut" 
-                component={SignOut} 
+                component={LogoutScreen} 
                 options={{
                     tabBarIcon: ({color, size}) => (
                         <FontAwesome name="sign-out" size={28} color="black" />
