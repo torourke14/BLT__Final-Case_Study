@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import colors from "../config/colors"
+import globalStyles from "../config/styles"
 
 /**
  * Ticket
@@ -10,9 +11,9 @@ import colors from "../config/colors"
 const Ticket = ({ticket}) => {
     
     return (
-        <View style={styles.listing}>
-            <Text style={styles.price}>${ticket.price}</Text>
-            <Text style={styles.text}>{ticket.title}</Text>
+        <View style={globalStyles.listing}>
+            <Text style={globalStyles.price}>${ticket.price}</Text>
+            <Text style={globalStyles.text}>{ticket.title}</Text>
         </View>
     )
 }

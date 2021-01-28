@@ -18,7 +18,3 @@ const Title = ({title}) => {
 }
 
 export default Title
-
-const styles = StyleSheet.create({
-    
-})

@@ -1,5 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
+import colors from '../config/colors'
+import globalStyles from "../config/styles"
 
 /**
  * Ticket
@@ -7,24 +9,25 @@ import { View, StyleSheet, Text } from 'react-native'
  *               with its status.
  */
 const Ticket = ({ticket}) => {
+    let status;
+    if (ticket.status === "Created") {
+        status = globalStyles.success
+    } else if (ticket.status === "AwaitingPayment") {
+        status = globalStyles.pending
+    } else if (ticket.status === "Cancelled") {
+        status = globalStyles.cancelled
+    } else if (ticket.status === "Completed") {
+        status = globalStyles.completed
+    }
     
     return (
-        <View style={styles.listing}>
-            <Text style={styles.text}>{ticket.title} - ${ticket.price} - Status: {ticket.status}</Text>
+        <View style={globalStyles.listing}>
+            <Text style={globalStyles.price}>${ticket.price}</Text>
+            <Text style={status}>{ticket.status}</Text>
+            <Text style={globalStyles.text}>{ticket.title}</Text>
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    listing: {
-        flex: 1,
-        flexDirection: 'column',
-        padding: 10,
-    },
-    text: {
-        flex: 1,
-    }
-})
 
 export default Ticket
 
