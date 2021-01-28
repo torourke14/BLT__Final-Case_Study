@@ -10,7 +10,6 @@ User sign up/in/out authentication program for StubHub clone.
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const User = require('./models/user');
 
 const currentUserRouter = require('./routes/currentuser');
 const userSignUpRouter = require('./routes/signup');
