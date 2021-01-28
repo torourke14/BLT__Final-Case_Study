@@ -1,5 +1,6 @@
 import React from 'react';
 import OrderView from './OrderView';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function OrderList(props) {
     const orders =     
@@ -33,19 +34,24 @@ function OrderList(props) {
     const renderOrders = () => {
         return orders.map((order) => {
             return (
-                <li key={order.id} className="">
+                <div>
+                <li className="list-group-item" key={order.id}>
                     <OrderView value={order} />
                 </li>
+                
+                </div>
             )
         })
     }
 
     return (
         <div>
-            <div className="list-group">
-                {renderOrders()}
-            </div>
+        <h1> My Orders </h1>
+        <ul className="list-group">
+            {renderOrders()}
+        </ul>
         </div>
+        
     );
 }
 
