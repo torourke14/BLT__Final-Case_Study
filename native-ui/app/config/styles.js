@@ -4,7 +4,28 @@ import colors from "./colors";
 
 export default {
   colors,
-  text: {
+  button: {
+    backgroundColor: colors.primary,
+    justifyContent: "center",
+    alignSelf: "center",
+    alignContent: "center",
+    padding: 15,
+    width: "100%",
+    marginVertical: 5,
+    marginHorizontal: 40,
+  },
+  buttonText: {
+    color: colors.white,
+    fontSize: 18,
+    textTransform: "uppercase",
+    fontWeight: "bold",
+    alignSelf: "center",
+  },
+  bg: {
+    width: '100%',
+    height: '100%',  
+  },
+  textInput: {
     color: colors.dark,
     fontSize: 18,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
@@ -38,42 +59,32 @@ export default {
     borderWidth: 1,
     fontSize: 16,
   },
-  success: {
+  status: {
     flex: 1,
     borderStyle: 'solid',
     borderColor: 'transparent',
-    backgroundColor: colors.success,
-    borderWidth: 1,
-    fontSize: 16,
-},
-pending: {
-    flex: 1,
-    borderStyle: 'solid',
-    borderColor: 'transparent',
-    backgroundColor: colors.highlight,
     borderWidth: 1,
     fontSize: 16,
   },
+  success: {
+    backgroundColor: colors.success,
+  },
+  pending: {
+    backgroundColor: colors.highlight,
+  },
   cancelled: {
-    flex: 1,
-    borderStyle: 'solid',
-    borderColor: 'transparent',
     backgroundColor: colors.danger,
-    borderWidth: 1,
-    fontSize: 16,
-},
-completed: {
-    flex: 1,
-    borderStyle: 'solid',
-    borderColor: 'transparent',
+  },
+  completed: {
     backgroundColor: colors.completed,
-    borderWidth: 1,
-    fontSize: 16,
-},
-text: {
+  },
+  text: {
     backgroundColor: colors.light,
     flex: 1,
     fontSize: 18,
     margin: 10,
-}
+  },
+  error: {
+    color: "red",
+  },
 };
