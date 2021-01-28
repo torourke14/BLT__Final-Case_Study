@@ -9,4 +9,12 @@ export default {
     fontSize: 18,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
   },
+  titleText: {
+    fontSize: 24,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    fontWeight: 'bold'
+  },
+  listText: {
+
+  },
 };

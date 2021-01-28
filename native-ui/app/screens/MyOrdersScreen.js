@@ -3,12 +3,8 @@ import {View, Text, Picker, StyleSheet} from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import Screen from '../components/Screen'
 import Title from '../components/Title'
-import Ticket from '../components/Ticket'
-/**
- * MyOrdersScreen
- * @description: Screen that renders a users order history
- * 
- */
+import TicketWithStatus from '../components/TicketWithStatus'
+
 
 const data = [
     {id: 1, title: 'basketball game', price: 40, userId: 'user1', status: 'Created'},
@@ -37,17 +33,23 @@ const data = [
     {id: 24, title: 'ted talk', price: 40, userId: 'user3', status: 'Completed'}
 ]
 
+/**
+ * MyOrdersScreen
+ * @description: Screen that renders a users order history
+ * 
+ */
+
 const MyOrdersScreen = () => {
     const [orderFilter, setOrderFilter] = useState('All')
     console.log("===> :", orderFilter)
     return (
-        <Screen>
+        <Screen style={styles.background}>
             <Title title="My Orders"/>
             <FlatList
                 data={data}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({item}) => (
-                    <Ticket ticket={item} />
+                    <TicketWithStatus ticket={item} />
                 )}
             />
         </Screen>
@@ -55,12 +57,11 @@ const MyOrdersScreen = () => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      paddingTop: 40,
-      alignItems: "center",
-      margin: 10
-    }
-  });
+    background: {
+        flex: 1,
+        width: "100%",
+        alignItems: "center",
+    },
+});
 
 export default MyOrdersScreen
