@@ -34,7 +34,7 @@ const PaymentModal = (props) => {
 
   return (
     <div>
-      <Button size="md" color="primary" onClick={toggle}>  Pay  </Button>
+      <Button size="md" color="primary" onClick={toggle}>  Purchase  </Button>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Enter your payment information to purchase ticket {ticket.id} </ModalHeader>
         <ModalBody>
