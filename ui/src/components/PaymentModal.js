@@ -43,7 +43,7 @@ const PaymentModal = (props) => {
             <Form onSubmit = {handleSubmit}>
                 <FormGroup>
                     <Label>Credit Card Number</Label>
-                    <Input placeholder="1234-5678-9101" onChange = {(e) => setCC(e.target.value)}/>
+                    <Input placeholder="1234-5678-9101-1121" onChange = {(e) => setCC(e.target.value)}/>
                 </FormGroup>
                 <FormGroup>
                     <Label>Expiration</Label>
