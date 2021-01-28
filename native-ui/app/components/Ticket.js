@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, ImageBackground } from 'react-native'
 import colors from "../config/colors"
 import globalStyles from "../config/styles"
 
@@ -11,9 +11,14 @@ import globalStyles from "../config/styles"
 const Ticket = ({ticket}) => {
     
     return (
+        
         <View style={globalStyles.listing}>
-            <Text style={globalStyles.price}>${ticket.price}</Text>
-            <Text style={globalStyles.text}>{ticket.title}</Text>
+            <ImageBackground source={require('../assets/ticket.png')}
+                             style={styles.bg}
+            >
+                <Text style={globalStyles.price}>${ticket.price}</Text>
+                <Text style={globalStyles.text}>{ticket.title}</Text>
+            </ImageBackground>
         </View>
     )
 }
@@ -44,6 +49,11 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 18,
         margin: 10,
+    },
+    bg: {
+        width: '100%',
+        height: '100%',
+        
     }
 })
 
