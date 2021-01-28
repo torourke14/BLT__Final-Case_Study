@@ -26,7 +26,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error'));
 app.post('/events', (req, res) => {
   const event = req.body;
 
-  app.locals.events.insertOne({event, timestamp});
+  app.locals.db.events.insertOne(event);
 
   axios.post('http://orders-clusterip-svc:4000/events', event);
   axios.post('http://tickets-clusterip-svc:4001/events', event);
@@ -43,7 +43,7 @@ app.post('/events', (req, res) => {
 
 app.get('/events', (req, res) => {
     const events = app.locals.db.events.find()
-  res.send(events);
+    res.send(events);
 });
 
 
