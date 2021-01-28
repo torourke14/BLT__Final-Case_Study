@@ -41,6 +41,5 @@ app.post('/events', (req, res) => {
 });
 
 app.listen(4000, () => {
-  console.log("v4.0.0")
-  console.log('Listening on 4000');
+  console.log('orders service listening on 4000');
 });

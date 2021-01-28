@@ -1,0 +1,21 @@
+version: '3'
+services:
+  node-api:
+    image: ""
+    container_name: node-api-container
+    ports:
+      - 5432:5432
+  web:
+    build: ./ui
+    container_name: react-container
+    ports:
+      - 8080:8080
+    links:
+      - node-api
+  mobile:
+    build: ./native-ui
+    container_name: mobile-container
+    ports:
+      - 4040:80
+    links:
+      - node-api
