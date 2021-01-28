@@ -20,6 +20,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import OrderView from "./components/OrderView"
 
 function App() {
 
@@ -49,7 +50,7 @@ function App() {
             <Route path="/tickets/new">
               <NewTicket/>
             </Route>
-            <Route path = "/tickets/:ticketID" render={props=> <TicketPurchase {...props}/>}/>​
+            <Route path = "/tickets/:ticketID" render={props=> <TicketPurchase {...props}/>}/>​​
             <Route path="/myorders">
               <OrderList/>
             </Route>

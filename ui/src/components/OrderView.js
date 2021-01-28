@@ -1,10 +1,12 @@
 import React from 'react';
 
-const OrderView = (ticket) => {
+const OrderView = (data) => {
+    let order = data.value
     return (
         <div>
-            <h1>{ticket.value.title}</h1>
-            <h2>{ticket.value.price}</h2>
+            <h1>{order.title}</h1>
+            <h2>{order.price}</h2>
+            <h3>{order.status}</h3>
         </div>
     );
 }
