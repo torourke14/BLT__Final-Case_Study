@@ -8,6 +8,7 @@ import TicketView from "./components/TicketView"
 import TicketTimer from "./components/TicketTimer"
 import PaymentModal from './components/PaymentModal'
 import OrderList from "./components/OrderList"
+import SignOut from "./components/SignOut";
 
 import React, {useState} from "react" 
 
@@ -44,8 +45,14 @@ function App() {
             <Route path="/signin">
               <SignIn user={user} checkLogin={checkLogin}/>
             </Route>
-            <Route path="/selltickets">
+            <Route path="/tickets/new">
               <NewTicket/>
+            </Route>
+            <Route path="/myorders">
+              <OrderList/>
+            </Route>
+            <Route path="/signout">
+              <SignOut logout={checkLogin}/>
             </Route>
           </Switch>
       </div>
