@@ -16,7 +16,7 @@ function SignIn(props) {
 		//BACKEND - post user request goes here
 		console.log(email, password);
 
-		props.setUserLogin(email,{
+		props.setUserLogin({
 			"email": email,
 			"password": password
 		})

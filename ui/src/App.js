@@ -29,6 +29,7 @@ function App() {
   let setUserLogin = (userSignin) => {
     setUser(userSignin);
   }
+  console.log(user);
 
 
   return (
