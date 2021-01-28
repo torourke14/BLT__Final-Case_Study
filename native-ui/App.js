@@ -2,24 +2,23 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { AppLoading } from 'expo'
-
+import OfflineNotice from "./app/components/OfflineNotice";
 import AppNavigator from './app/navigation/AppNavigator';
 import TicketListingScreen from './app/screens/TicketListingScreen';
 import navigationTheme from "./app/navigation/navigationTheme";
 import { navigationRef } from "./app/navigation/rootNavigation";
 import AuthNavigator from './app/navigation/AuthNavigator';
+import logger from "./app/utility/logger";
+import AuthContext from './app/auth/context';
+
+logger.start();
 
 export default function App() {
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);
 
   const restoreUser = async () => {
-    // TODO: implement auth
-    // 
-    // for testing "while logged in" until we have comm with backend, just uncomment:
-    const user = { "email": "test", "password": "test" }
-    // 
-    // const user = await authStorage.getUser();
+    const user = await authStorage.getUser()
     if (user) setUser(user);
   };
 
@@ -29,9 +28,12 @@ export default function App() {
     );
 
   return (
-    <NavigationContainer ref={navigationRef} theme={navigationTheme}>
-       <AppNavigator />
-    </NavigationContainer>
+    <AuthContext.Provider value={{user, setUser}} >
+      <OfflineNotice />
+      <NavigationContainer ref={navigationRef} theme={navigationTheme}>
+        <AppNavigator />
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 }
 
