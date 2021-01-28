@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text} from 'react-native'
+import {View, Text, StyleSheet} from 'react-native'
 import Screen from '../components/Screen'
 import Title from '../components/Title'
 import * as Yup from "yup";
@@ -7,8 +7,10 @@ import * as Yup from "yup";
 import {
     AppForm as Form,
     AppFormField as FormField,
-    SubmitButton,
 } from "../components/forms";
+
+import Button from '../components/AppButton'
+
 
 const validationSchema = Yup.object().shape({
     title: Yup.string().required().min(4).max(20).label("Title"),
@@ -27,29 +29,53 @@ const SellTicketsScreen = () => {
     }
     
     return (
-        <Screen>
+        <Screen style={styles.background}>
             <Title title="Create a Ticket"/>
             <Form 
                 initialValues={{title: '', price: ''}}
                 onSubmit={(values) => createTicket(values)}
                 validationSchema={validationSchema}
             >
-                <FormField
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    name="title"
-                    placeholder="Title"
-                />
-                <FormField
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    name="price"
-                    placeholder="Price"
-                />
-                <SubmitButton title="Submit" />
+                <View style={styles.input} >
+                    <FormField
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        name="title"
+                        placeholder="Title"
+                    />
+                    <FormField
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        name="price"
+                        placeholder="Price"
+                    />
+                </View>
+                <View style={styles.buttonsContainer} >
+                    <Button 
+                        title="Submit" 
+                        color="primary"/>
+                </View>
+                
             </Form>
         </Screen>
     )
 }
+
+const styles = StyleSheet.create({
+    background: {
+      flex: 1,
+      width: "100%",
+      alignItems: "center",
+    },
+    buttonsContainer: {
+      padding: 20,
+      width: "100%",
+    },
+    input: {
+        padding: 20,
+        width: '100%'
+    },
+    
+});
 
 export default SellTicketsScreen

@@ -30,17 +30,8 @@ export default function App() {
 
   return (
     <NavigationContainer ref={navigationRef} theme={navigationTheme}>
-      {user ? <AppNavigator /> : <AuthNavigator />}
+       <AppNavigator />
     </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%'
-  },
-});
