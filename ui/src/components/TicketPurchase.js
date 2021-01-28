@@ -38,10 +38,6 @@ const TicketPurchase = (props) => {
                     <PaymentModal ticket={ticket}/>
                 </div>
             )
-        }else{
-            return (
-                <button disabled className="btn-sm btn-secondary">Unavailable</button>
-            )
         }
     }
     return (
