@@ -2,7 +2,7 @@ import React from 'react';
 
 const SignOut = (props) => {
 
-    props.logout(false);
+    props.logout("");
 
     return (
         <div>
