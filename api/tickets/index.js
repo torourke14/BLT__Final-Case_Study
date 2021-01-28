@@ -5,6 +5,7 @@
  *  Ticket record program for StubHub clone.
 */
 
+require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -12,19 +13,13 @@ const axios = require('axios');
 const { body, validationResult } = require('express-validator');
 const { Ticket } = require('./models/ticket.js');
 const mongoose = require('mongoose');
-require('dotenv').config
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-console.log(process.env.MONGO_USER)
-console.log(process.env.MONGO_PW)
-
 // const uri = "mongodb+srv://admin:12345@cluster0.l6u68.mongodb.net/<dbname>?retryWrites=true&w=majority";
-const uri = `mongodb+srv://root:letmein12345@e-tickets-cluster.ovpau.mongodb.net/tickets-db?retryWrites=true&w=majority`
-//db - tickets-db
-//collection - tickets
+const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PW}@e-tickets-cluster.ovpau.mongodb.net/${process.env.MONGO_TICKETS_DB}?retryWrites=true&w=majority`
 mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
 
 // function errorHandler(err, req, res, next) {
@@ -36,12 +31,8 @@ mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
 // }
 
 app.get('/api/tickets', (req, res) => {
-  // main();
-
     Ticket.find({}, (err, tickets) => {
         if (err) throw err
-        console.log("Here are the tickets")  ///////////////// REMOVE
-        console.log(tickets)
         res.send(tickets || [])
     })
 });
@@ -51,8 +42,6 @@ app.get('/api/tickets/:id', (req, res) => {
 
     Ticket.findById(req.params.id, (err, ticket) => {
         if (err) throw err
-        console.log("Here is the ticket")  ///////////////// REMOVE
-        console.log(ticket)
         res.send(ticket || [])
     })
 
@@ -87,14 +76,14 @@ app.post('/api/tickets', [
     });
     await ticket.save();
 
-    // await axios.post('http://event-bus-clusterip-svc:4005/events', {
-    //     type: 'TicketCreated',
-    //     data: {
-    //     ticketId: ticket.id,
-    //     title,
-    //     price
-    //     }
-    // });
+    await axios.post('http://event-bus-clusterip-svc:4005/events', {
+        type: 'TicketCreated',
+        data: {
+        ticketId: ticket.id,
+        title,
+        price
+        }
+    });
 
     res.status(201).send(ticket);
 });
@@ -135,16 +124,15 @@ app.put('/api/tickets/:id', [
         price,
     });
     await ticket.save();
-    console.log(ticket)                                ///////////////// REMOVE
 
-    // await axios.post('http://event-bus-clusterip-svc:4005/events', {
-    //     type: 'TicketUpdated',
-    //     data: {
-    //     ticketId: ticket.id,
-    //     title,
-    //     price
-    //     }
-    // });
+    await axios.post('http://event-bus-clusterip-svc:4005/events', {
+        type: 'TicketUpdated',
+        data: {
+        ticketId: ticket.id,
+        title,
+        price
+        }
+    });
 
     res.status(201).send(ticket);
 });
