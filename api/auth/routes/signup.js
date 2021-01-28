@@ -34,19 +34,21 @@ router.post('/api/users/signup', [
         //Query database for matching email address
         const { email, password } = req.body;
 
-        // const existingUser = await User.findOne({ email });
+        const existingUser = await User.findOne({ email });
 
-        // if(existingUser){
-        //     console.log("WARNING - This user email already exists in the database.");
-        //     return res.send({});
-        // }else{
+        //If user exists send warning
+        if(existingUser){
+            console.log("WARNING - This user email already exists in the database.");
+            return res.send({});
+
+        //Else create new user, hash password, and save to database.
+        }else{
             const user = new User({email, password});
-            console.log(user);
 
-            res.status(201).send(user);
             //Save user to database.
-            //await user.save();
-        //}
+            await user.save();
+            res.status(201).send(user);
+        }
     }
 );
 

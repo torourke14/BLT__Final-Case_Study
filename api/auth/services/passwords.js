@@ -1,14 +1,14 @@
-const { scrypt, randombytes } = require('crypto');
+const { scrypt, randomBytes } = require('crypto');
 const { promisify } = require('util');
-
 const scryptAsync = promisify(scrypt);
 
-module.export = class Password {
+class Password {
   static async toHash(password) {
     const salt = randomBytes(8).toString('hex');
     const buf = (await scryptAsync(password, salt, 64));
-
-    return `${buf.toString('hex')}.${salt}`;
+    const hashedPw = `${buf.toString('hex')}.${salt}`;
+    console.log(`Hashed PW: ${hashedPw}`)
+    return hashedPw;
   }
 
   static async compare(storedPassword, suppliedPassword) {
@@ -18,3 +18,5 @@ module.export = class Password {
     return buf.toString('hex') === hashedPassword;
   }
 }
+
+module.exports = Password;
