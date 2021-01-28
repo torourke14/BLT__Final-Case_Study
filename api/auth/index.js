@@ -29,13 +29,16 @@ app.use(userSignOutRouter);
 //Middleware setup
 app.use(errorHandler);
 
+//Config
+require('dotenv').config();
+
 const startAuth = async () => {
 
   //Try to connect to db
   try{
-  
+
     //Link to database
-    await mongoose.connect('mongodb+srv://root:letmein12345@e-tickets-cluster.ovpau.mongodb.net/ticket-shop?retryWrites=true&w=majority', {
+    await mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PW}@e-tickets-cluster.ovpau.mongodb.net/${process.env.MONGO_MAIN}?retryWrites=true&w=majority`, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true
