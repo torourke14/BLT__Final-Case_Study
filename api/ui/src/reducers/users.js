@@ -1,0 +1,1 @@
+// create a reducer to store token. Remember state declares the type that the object stores.
