@@ -1,23 +1,25 @@
 import React, {useState} from "react" 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Header = () => {
+import { Link } from 'react-router-dom';
+
+const Header = (props) => {
 
     //have to see if user is sign in or out to choose which header to display
-    let user = true;
+    let {user} = props;
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="#">GitTix</a>
+            <Link className="navbar-brand" to="/">GitTix</Link>
             {user ? 
                 <div className="navbar-nav">
-                    <a className="nav-item nav-link active" href="#"> My Orders </a>
-                    <a className="nav-item nav-link active" href="#"> Sell Tickets</a>
-                    <a className="nav-item nav-link active" href="#"> Sign Out</a>          
+                    <Link className="nav-item nav-link active" to="/myorders"> My Orders </Link>
+                    <Link className="nav-item nav-link active" to="tickets/new"> Sell Tickets</Link>
+                    <Link className="nav-item nav-link active" to="/signout"> Sign Out</Link>          
                 </div> : 
                 <div className="navbar-nav">
-                    <a className="nav-item nav-link active" href="#"> Sign Up </a>
-                    <a className="nav-item nav-link active" href="#"> Sign In </a>         
+                    <Link className="nav-item nav-link active" to="/signup"> Sign Up </Link>
+                    <Link className="nav-item nav-link active" to="signin"> Sign In </Link>         
                 </div>
             }
             

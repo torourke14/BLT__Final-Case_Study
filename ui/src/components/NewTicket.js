@@ -1,15 +1,21 @@
 import React, {useState} from "react" 
+import { useHistory } from "react-router-dom";
 
 const NewTicket = () => {
 
     const [title, setTitle] = useState("");
-	const [price, setPrice] = useState("");
+    const [price, setPrice] = useState("");
+    
+    let history = useHistory();
 
 	const onSubmit = (event) => {
 		event.preventDefault();
 
-		//BACKEND - post ticket request goes here
-		console.log(title, price);
+		//BACKEND - post ticket would request goes here
+        console.log(title, price);
+
+        //redirects to tickets page after new ticket is made
+        history.push("/")
 	}
 
 	const validateForm = () => {
@@ -32,6 +38,7 @@ const NewTicket = () => {
                 <label> Price: </label>
                 <input
                     className="form-control"
+                    type="number"
                     value={price} 
           		    onChange={(e) => setPrice(e.target.value)}
                 />
