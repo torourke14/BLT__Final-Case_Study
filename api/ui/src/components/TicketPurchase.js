@@ -57,7 +57,7 @@ const TicketPurchase = (props) => {
     const renderTimer = () =>{
         return (
             <div>
-                <h2> You have {time} seconds left</h2> 
+                <p> You have {time} seconds left to order</p> 
             </div>
         )        
     }
@@ -68,7 +68,7 @@ const TicketPurchase = (props) => {
             {renderTimer()}
             <ul className="list-group">
                 <li className="list-group-item"> Price - ${ticket.price}</li>
-                {/* <li className="list-group-item"> Status - {ticket.available? "Available": "Unavailable"}</li> */}
+                {<li className="list-group-item"> Status - {ticket.available? "Available": "Unavailable"}</li>}
             </ul>
             <br/>            
             {renderBuyBtn()}            
