@@ -3,10 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Link } from 'react-router-dom';
 
-const Header = () => {
+const Header = (props) => {
 
     //have to see if user is sign in or out to choose which header to display
-    let user = false;
+    let {user} = props;
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -14,8 +14,8 @@ const Header = () => {
             {user ? 
                 <div className="navbar-nav">
                     <Link className="nav-item nav-link active" to="/myorders"> My Orders </Link>
-                    <Link className="nav-item nav-link active" to="selltickets"> Sell Tickets</Link>
-                    <Link className="nav-item nav-link active" to="/"> Sign Out</Link>          
+                    <Link className="nav-item nav-link active" to="tickets/new"> Sell Tickets</Link>
+                    <Link className="nav-item nav-link active" to="/signout"> Sign Out</Link>          
                 </div> : 
                 <div className="navbar-nav">
                     <Link className="nav-item nav-link active" to="/signup"> Sign Up </Link>

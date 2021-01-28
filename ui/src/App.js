@@ -8,6 +8,9 @@ import TicketView from "./components/TicketView"
 import TicketTimer from "./components/TicketTimer"
 import PaymentModal from './components/PaymentModal'
 import OrderList from "./components/OrderList"
+import SignOut from "./components/SignOut";
+
+import React, {useState} from "react" 
 
 import './App.css';
 
@@ -19,15 +22,38 @@ import {
 } from "react-router-dom";
 
 function App() {
+
+  //is user logged in
+  const [user, setUser] = useState(false);
+
+  let checkLogin = (isUser) => {
+    setUser(isUser);
+  }
+
+
   return (
     <Router>
       <div>
-          <Header/>
+          <Header user={user}/>
           <Switch>
-            <Route path="/" component={TicketList} exact/>
-            <Route path="/signup" component={SignUp}/>
-            <Route path="/signin" component={SignIn}/>
-            <Route path="/selltickets" component={NewTicket}/>
+            <Route path="/" exact>
+              <TicketList/>
+            </Route>
+            <Route path="/signup">
+              <SignUp/>
+            </Route>
+            <Route path="/signin">
+              <SignIn user={user} checkLogin={checkLogin}/>
+            </Route>
+            <Route path="/tickets/new">
+              <NewTicket/>
+            </Route>
+            <Route path="/myorders">
+              <OrderList/>
+            </Route>
+            <Route path="/signout">
+              <SignOut logout={checkLogin}/>
+            </Route>
           </Switch>
       </div>
     </Router>

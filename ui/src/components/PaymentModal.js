@@ -1,42 +1,41 @@
-import React from 'react';
-import {useState, useEffect} from 'react';
-import {Modal, Button} from 'reactstrap'
-// this file is me trying to figure out the modals
-function PaymentModal() {
-    const [show, setShow] = useState(false);
+import React, { useState } from 'react';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap';
 
-    return (
-      <>
-        <Button variant="primary" onClick={() => setShow(true)}>
-          Custom Width Modal
-        </Button>
-  
-        <Modal
-          show={show}
-          onHide={() => setShow(false)}
-          dialogClassName="modal-90w"
-          aria-labelledby="example-custom-modal-styling-title"
-        >
-          <Modal.Header closeButton>
-            <Modal.Title id="example-custom-modal-styling-title">
-              Custom Modal Styling
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <p>
-              Ipsum molestiae natus adipisci modi eligendi? Debitis amet quae unde
-              commodi aspernatur enim, consectetur. Cumque deleniti temporibus
-              ipsam atque a dolores quisquam quisquam adipisci possimus
-              laboriosam. Quibusdam facilis doloribus debitis! Sit quasi quod
-              accusamus eos quod. Ab quos consequuntur eaque quo rem! Mollitia
-              reiciendis porro quo magni incidunt dolore amet atque facilis ipsum
-              deleniti rem!
-            </p>
-          </Modal.Body>
-        </Modal>
-      </>
-    );
-  
-  }
-  
-  export default PaymentModal;
+const PaymentModal = (props) => {
+  const {
+    buttonLabel,
+    className
+  } = props;
+
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
+
+  return (
+    <div>
+      <Button color="secondary" onClick={toggle}>Pay</Button>
+      <Modal isOpen={modal} toggle={toggle} className={className}>
+        <ModalHeader toggle={toggle}>Enter your payment information</ModalHeader>
+        <ModalBody>
+            <Form>
+                <FormGroup>
+                    <Label >Credit Card Number</Label>
+                    <Input placeholder="1234-5678-9101" />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="examplePassword">Expiration</Label>
+                    <Input type="month" placeholder="10/08/1996" />
+                </FormGroup>
+            </Form>
+        </ModalBody>
+        <ModalFooter>
+                <Button>Submit</Button>
+                <Button onClick = {toggle}>Cancel</Button>
+
+        </ModalFooter>
+      </Modal>
+    </div>
+  );
+}
+
+export default PaymentModal;

@@ -26,13 +26,19 @@ router.post('/api/users/signup', [
         const errors = validationResult(req);
 
         //Display errors to user
+        const error = new Error('Invalid email or password!');
+        error.descriptors = errors.array();
+
         if(!errors.isEmpty()){
-            return (res.status(400).send(errors.array()));
+            const error = new Error('Invalid email or password!');
+            error.descriptors = errors.array();
+            throw error;
         }
         
         const {email, password} = req.body;
         
-        console.log('Successfully validated! User creation initiated:');
+        console.log('Successfully validated! User creation initiated...');
+
         res.send({});
 });
 
