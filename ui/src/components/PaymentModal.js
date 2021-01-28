@@ -4,7 +4,8 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, La
 const PaymentModal = (props) => {
   const {
     buttonLabel,
-    className
+    className,
+    ticket
   } = props;
 
   const [modal, setModal] = useState(false);
@@ -15,7 +16,7 @@ const PaymentModal = (props) => {
     <div>
       <Button color="secondary" onClick={toggle}>Pay</Button>
       <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>Enter your payment information</ModalHeader>
+        <ModalHeader toggle={toggle}>Enter your payment information to purchase ticket {ticket.id} </ModalHeader>
         <ModalBody>
             <Form>
                 <FormGroup>
@@ -29,9 +30,10 @@ const PaymentModal = (props) => {
             </Form>
         </ModalBody>
         <ModalFooter>
+            <Link to="/confirmation">
                 <Button>Submit</Button>
                 <Button onClick = {toggle}>Cancel</Button>
-
+            </Link>
         </ModalFooter>
       </Modal>
     </div>

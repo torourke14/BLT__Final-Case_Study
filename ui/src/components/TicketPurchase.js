@@ -23,7 +23,7 @@ const TicketPurchase = (props) => {
         if (ticket.available){
             return (
                 <div>
-                    <PaymentModal/>
+                    <PaymentModal ticket={ticket}/>
                 </div>
             )
         }else{
