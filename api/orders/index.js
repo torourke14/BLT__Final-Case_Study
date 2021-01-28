@@ -11,13 +11,13 @@ app.use(cors());
 const mongoose = require('mongoose');
 
 const uri = "mongodb+srv://Ranjani:Kardya123@cluster0.wsa8q.mongodb.net/myDB?retryWrites=true&w=majority";
-            
+//the uri for the mongoDB that I created on the internet            
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
+//makes sure the mongoDB follows the structure of mongoose
 // mongoose => ODM ( object document model )
 
 // object Model
-
+//getting all the orders
 app.get('/', (req, res) => {
     Order.find({}, (err, orders) => {
         if (err) throw err
@@ -26,6 +26,7 @@ app.get('/', (req, res) => {
         res.send(orders)
     })
 });
+//getting individual orders by id
 app.get('/:id', (req, res) => {
     Order.find({ticketId: req.params.id}, (err, orders) => {
         if (err) throw err
@@ -34,13 +35,16 @@ app.get('/:id', (req, res) => {
         res.send(orders)
     })
 });
+//put a new order in the database, and the request body is a json object of the order followed by the mongoose structure. 
+/*Sample: {"userId": 1, "status": "completed", "tickedId": 1, "Date": "2021-01-28T07:45:26.630Z"} */
 app.post('/',  async (req, res) => {
     let { body } = req
  
-    const order = new Order({ ...body})
-    await order.save()
+    const order = new Order({ ...body})//order object with broken json data
+    await order.save()//puts it in database
     res.status(201).json({ order })
 })
+//please look at this one, it takes a long time to load, Nag put some documentation in Slack
 app.post('/:id/update',  async (req, res) => {
     let { body } = req //request is a json object for the status update e.g {"status": "Created"}
  
@@ -49,10 +53,11 @@ app.post('/:id/update',  async (req, res) => {
     });
    
 })
+//deletes an item by its ticket id
 app.delete('/:id',  async (req, res) => {
     let body = { ticketId: req.params.id }
  
-    const condition = { ...body}
+    const condition = { ...body}//the orders with that id need to be deleted
     Order.deleteMany(condition, (err, orders) => {
         if (err) throw err
         console.log("Here are all the orders")
@@ -61,7 +66,7 @@ app.delete('/:id',  async (req, res) => {
     })
     
 })
-
+//these are a few sample methods to start off the DB, feel free to delete them 
 const order = new Order({
     userId: 1, status:  'pendin', ticketId: 1, expiresAt: new Date()
 
@@ -80,7 +85,7 @@ Order.deleteMany({}, (err, orders) => {
 })
 
 
-
+//port for testing, change that if it does not fit in with your program
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 /**
