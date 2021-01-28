@@ -4,6 +4,7 @@ import Button from './AppButton'
 import {
     AppForm as Form,
     AppFormField as FormField,
+    SubmitButton,
 } from "../components/forms";
 import * as Yup from "yup";
 
@@ -40,7 +41,7 @@ const ModalContent = () => {
                 />
             </View>
             <View style={styles.buttonsContainer} >
-                <Button 
+                <SubmitButton 
                     title="Submit" 
                     color="primary"
                 />
