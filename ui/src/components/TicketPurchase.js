@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useHistory, useParams} from 'react';
+import React, { useState, useEffect, useParams} from 'react';
 import { render } from 'react-dom';
 import Header from './Header';
 import PaymentModal from './PaymentModal';
-import { Router, Link } from "react-router-dom";
+import { Router, Link, useHistory } from "react-router-dom";
 
 import _ from 'lodash'
 const TicketPurchase = (props) => { 
-
+    let history = useHistory();
     let ticketID = props.match.params.ticketID;
     ticketID = parseInt(ticketID)
     //DO NOT CHANGE THE CODE ABOVE
