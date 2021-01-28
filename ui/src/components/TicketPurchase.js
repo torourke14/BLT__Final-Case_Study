@@ -50,7 +50,7 @@ const TicketPurchase = (props) => {
             <h1> {ticket.title} {renderGoBackButton()} </h1>
             <ul className="list-group">
                 <li className="list-group-item"> Price - ${ticket.price}</li>
-                <li className="list-group-item"> Status - {ticket.available}</li>
+                <li className="list-group-item"> Status - {ticket.available? "Available": "Unavailable"}</li>
             </ul>
             <br/>
             
