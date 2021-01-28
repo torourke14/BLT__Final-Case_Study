@@ -5,19 +5,19 @@ metadata:
 spec:
 	replicas: 1
    	selector:
-      	matchLabels:
-         	app: auth
+      matchLabels:
+        app: auth
    	template:
-      	metadata:
-         	labels:
-            	app: auth
-      	spec:
-         	containers:
-            	- name: auth
-              	image: tannero/auth
-      	env:
-         	- name: TOKEN
-           	value: letmeinpleasekthxbye
+      metadata:
+        labels:
+          app: auth
+      spec:
+        containers:
+          - name: auth
+            image: tannero/auth
+      env:
+        - name: TOKEN
+          value: letmeinpleasekthxbye
 ---
 apiVersion: v1
 kind: Service
@@ -26,7 +26,7 @@ metadata:
 spec:
    	type: ClusterIP
    	selector:
-      	app: auth
+      app: auth
    	ports:
       - name: auth
         port: 5000
