@@ -14,8 +14,8 @@ const Header = (props) => {
             {user ? 
                 <div className="navbar-nav">
                     <Link className="nav-item nav-link active" to="/myorders"> My Orders </Link>
-                    <Link className="nav-item nav-link active" to="selltickets"> Sell Tickets</Link>
-                    <Link className="nav-item nav-link active" to="/"> Sign Out</Link>          
+                    <Link className="nav-item nav-link active" to="tickets/new"> Sell Tickets</Link>
+                    <Link className="nav-item nav-link active" to="/signout"> Sign Out</Link>          
                 </div> : 
                 <div className="navbar-nav">
                     <Link className="nav-item nav-link active" to="/signup"> Sign Up </Link>
