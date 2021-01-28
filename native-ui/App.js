@@ -8,10 +8,10 @@ import TicketListingScreen from './app/screens/TicketListingScreen';
 import navigationTheme from "./app/navigation/navigationTheme";
 import { navigationRef } from "./app/navigation/rootNavigation";
 import AuthNavigator from './app/navigation/AuthNavigator';
-import logger from "./app/utility/logger";
+import authStorage from "./app/auth/storage";
 import AuthContext from './app/auth/context';
 
-logger.start();
+
 
 export default function App() {
   const [user, setUser] = useState();
@@ -20,6 +20,7 @@ export default function App() {
   const restoreUser = async () => {
     const user = await authStorage.getUser()
     if (user) setUser(user);
+    console.log("USER? ", user)
   };
 
   if (!isReady)
@@ -31,7 +32,7 @@ export default function App() {
     <AuthContext.Provider value={{user, setUser}} >
       <OfflineNotice />
       <NavigationContainer ref={navigationRef} theme={navigationTheme}>
-        <AppNavigator />
+        {user ? <AppNavigator /> : <AuthNavigator />}
       </NavigationContainer>
     </AuthContext.Provider>
   );
