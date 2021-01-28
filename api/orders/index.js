@@ -10,7 +10,7 @@ app.use(cors());
 
 const mongoose = require('mongoose');
 
-const uri = "mongodb+srv://Ranjani:Kardya123%23@cluster0.zxv43.mongodb.net/mydb?retryWrites=true&w=majority";
+const uri = "mongodb+srv://Ranjani:Kardya123@cluster0.wsa8q.mongodb.net/myDB?retryWrites=true&w=majority";
             
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -21,15 +21,28 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 app.get('/', (req, res) => {
     Order.find({}, (err, orders) => {
         if (err) throw err
-        console.log("Here are all the orders")
+        console.log("Here are the orders")
         console.log(orders)
         res.send(orders)
     })
 });
-Order.deleteMany({}, (err, orders) => {
-    if (err) throw err
-    console.log("Here are all the orders")
-    console.log(orders)
+app.post('/',  async (req, res) => {
+    let { body } = req
+ 
+    const order = new Order({ ...body})
+    await order.save()
+    res.status(201).json({ order })
+})
+app.post('/delete',  async (req, res) => {
+    let { body } = req
+ 
+    const condition = { ...body}
+    Order.deleteMany(condition, (err, orders) => {
+        if (err) throw err
+        console.log("Here are all the orders")
+        console.log(orders)
+        res.status(201).json({ orders })
+    })
     
 })
 
@@ -42,6 +55,15 @@ order.save().then(() => {
     console.log("new order saved");
     // // get all customers
 })
+//deletes everything before starting the datbase
+Order.deleteMany({}, (err, orders) => {
+    if (err) throw err
+    console.log("Here are all the orders")
+    console.log(orders)
+    
+})
+
+
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
