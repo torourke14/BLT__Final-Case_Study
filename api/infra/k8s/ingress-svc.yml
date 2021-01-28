@@ -18,19 +18,21 @@ rules:
       backend:
         serviceName: client-clusterip-svc
         servicePort: 3000
-    - path: /orders
+    - path: /tickets
       pathType: Exact
       backend:
         serviceName: query-clusterip-svc
         servicePort: 3500
-    - path: /orders/create
-      backend:
-        serviceName: orders-clusterip-svc
-        servicePort: 4000
-    - path: /tickets
+    - path: /tickets/:id
       backend:
         serviceName: tickets-clusterip-svc
         servicePort: 4001
+
+    - path: /orders
+      backend:
+        serviceName: orders-clusterip-svc
+        servicePort: 4000
+    
     - path: /payments
       backend:
         serviceName: payments-clusterip-svc
