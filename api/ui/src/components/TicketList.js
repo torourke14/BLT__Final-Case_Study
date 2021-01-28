@@ -44,8 +44,8 @@ const TicketList = (props) => {
                             {props.user
                                 ? 
                                 <div>
-                                    <p>{ticket.title} - ${ticket.price}</p>
-                                    <p>Ticket Unavailable</p>
+                                    <p>{ticket.title} - ${ticket.price} - SOLD OUT</p>
+                                    
                                 </div>
                                 : 
                                 <p>{ticket.title} - ${ticket.price}</p>}
