@@ -21,7 +21,7 @@ const getToken = async () => {
 
 const getUser = async () => {
     const token = await getToken()
-    return token ? jwtDecode(token) : null
+    return token // ? jwtDecode(token) : null // TODO: Uncomment this later
 }
 
 const removeToken = async () => {
