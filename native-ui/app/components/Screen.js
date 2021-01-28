@@ -2,6 +2,11 @@ import React from 'react'
 import Constants from 'expo-constants'
 import { StyleSheet, SafeAreaView, View } from 'react-native'
 
+/**
+ * Screen
+ * @description: Used to add buffer space for mobile screens
+ * 
+ */
 const Screen = ({children, style}) => {
     return (
         <SafeAreaView style={[styles.screen, style]}>

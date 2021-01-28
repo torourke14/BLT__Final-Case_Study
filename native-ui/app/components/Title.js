@@ -1,6 +1,10 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-
+/**
+ * Title
+ * @description: Used to display the title of the page
+ * 
+ */
 const Title = ({title}) => {
     
     return (
