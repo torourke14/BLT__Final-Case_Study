@@ -33,14 +33,12 @@ const TicketList = () => {
         })
     }
     return (
-        <Router>
             <div>            
                 <div className="list-group">                
                     {renderTickets()}
                 </div>
-                <Route path = "/tickets/:ticketID" render={props=> <TicketPurchase {...props}/>}/>​
             </div>
-            </Router>
+
     );
 
 };

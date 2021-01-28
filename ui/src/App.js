@@ -49,12 +49,13 @@ function App() {
             <Route path="/tickets/new">
               <NewTicket/>
             </Route>
+            <Route path = "/tickets/:ticketID" render={props=> <TicketPurchase {...props}/>}/>​
             <Route path="/myorders">
               <OrderList/>
             </Route>
             <Route path="/signout">
               <SignOut logout={setUserLogin}/>
-            </Route>
+            </Route>​
           </Switch>
       </div>
     </Router>
