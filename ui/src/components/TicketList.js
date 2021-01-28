@@ -11,29 +11,45 @@ import {
 import Header from './Header';
 import TicketPurchase from './TicketPurchase';
 
-const TicketList = () => {
+import 'bootstrap/dist/css/bootstrap.min.css';
 
+const TicketList = (props) => {
+    
     const tickets = [
-        {id:1, title: 'bball', price: 40, userId: 'asdf', orderId: 'asdf', available: true},
-        {id:2, title: 'concert', price: 50, userId: 'asdf', orderId: 'asdf', available: false},
-        {id:3, title: 'movie', price: 23, userId: 'asdf', orderId: 'asdf', available: true}
+        {id:1, title: 'Baseball Game', price: 40, userId: 'asdf', orderId: 'asdf', available: true},
+        {id:2, title: 'Concert', price: 50, userId: 'asdf', orderId: 'asdf', available: false},
+        {id:3, title: 'Movie', price: 23, userId: 'asdf', orderId: 'asdf', available: true}
         ]
     const renderTickets = () => {
         return tickets.map((ticket) => {
             return ( 
                 <div>
-                    
-                    <li key={ticket.id} className="">
-                       <Link to={`/tickets/${ticket.id}`}>
-                            <p>{ticket.title}</p>
-                       </Link>
+                    <li key={ticket.id} className="list-group-item">
+                        {props.user
+                            ? 
+                            <Link to={`/tickets/${ticket.id}`}>
+                                <p>{ticket.title} - ${ticket.price}</p>
+                            </Link>
+                            : 
+                            <p>{ticket.title} - ${ticket.price}</p>}
+                       
                     </li>
                 </div>
             )
         })
     }
+
+    const isLoggedIn = () => {
+        if(!props.user){
+            return (<p> Please sign in to buy tickets</p>)
+        }
+        
+    }
+    
     return (
-            <div>            
+            <div>      
+                <h1> Tickets for Sale </h1>   
+                <div> {isLoggedIn()} </div>
                 <div className="list-group">                
                     {renderTickets()}
                 </div>

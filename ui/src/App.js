@@ -37,27 +37,29 @@ function App() {
     <Router>
       <div>
           <Header user={user}/>
-          <Switch>
-            <Route path="/" exact>
-              <TicketList/>
-            </Route>
-            <Route path="/signup">
-              <SignUp/>
-            </Route>
-            <Route path="/signin">
-              <SignIn setUserLogin={setUserLogin}/>
-            </Route>
-            <Route path="/tickets/new">
-              <NewTicket/>
-            </Route>
-            <Route path = "/tickets/:ticketID" render={props=> <TicketPurchase {...props}/>}/>​​
-            <Route path="/myorders">
-              <OrderList/>
-            </Route>
-            <Route path="/signout">
-              <SignOut logout={setUserLogin}/>
-            </Route>​
-          </Switch>
+          <div style={{margin:"25px"}}>
+            <Switch>
+              <Route path="/" exact>
+                <TicketList user={user}/>
+              </Route>
+              <Route path="/signup">
+                <SignUp/>
+              </Route>
+              <Route path="/signin">
+                <SignIn setUserLogin={setUserLogin}/>
+              </Route>
+              <Route path="/tickets/new">
+                <NewTicket/>
+              </Route>
+              <Route path = "/tickets/:ticketID" render={props=> <TicketPurchase {...props}/>}/>​​
+              <Route path="/myorders">
+                <OrderList/>
+              </Route>
+              <Route path="/signout">
+                <SignOut logout={setUserLogin}/>
+              </Route>​
+            </Switch>
+          </div>
       </div>
     </Router>
     
