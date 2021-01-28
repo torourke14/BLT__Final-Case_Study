@@ -9,7 +9,6 @@ import TicketTimer from "./components/TicketTimer"
 import PaymentModal from './components/PaymentModal'
 import OrderList from "./components/OrderList"
 
-import React, {useState} from "react" 
 
 import './App.css';
 
@@ -21,33 +20,15 @@ import {
 } from "react-router-dom";
 
 function App() {
-
-  //is user logged in
-  const [user, setUser] = useState(false);
-
-  let checkLogin = (isUser) => {
-    setUser(isUser);
-    console.log(user);
-  }
-
-
   return (
     <Router>
       <div>
-          <Header user={user}/>
+          <Header/>
           <Switch>
-            <Route path="/" exact>
-              <TicketList/>
-            </Route>
-            <Route path="/signup">
-              <SignUp/>
-            </Route>
-            <Route path="/signin">
-              <SignIn user={user} checkLogin={checkLogin}/>
-            </Route>
-            <Route path="/selltickets">
-              <NewTicket/>
-            </Route>
+            <Route path="/" component={TicketList} exact/>
+            <Route path="/signup" component={SignUp}/>
+            <Route path="/signin" component={SignIn}/>
+            <Route path="/selltickets" component={NewTicket}/>
           </Switch>
       </div>
     </Router>
