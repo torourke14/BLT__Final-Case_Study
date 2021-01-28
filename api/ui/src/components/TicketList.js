@@ -22,20 +22,39 @@ const TicketList = (props) => {
         ]
     const renderTickets = () => {
         return tickets.map((ticket) => {
-            return ( 
-                <div>
-                    <li key={ticket.id} className="list-group-item">
-                        {props.user
-                            ? 
-                            <Link to={`/tickets/${ticket.id}`}>
-                                <p>{ticket.title} - ${ticket.price}</p>
-                            </Link>
-                            : 
-                            <p>{ticket.title} - ${ticket.price}</p>}
-                       
-                    </li>
-                </div>
-            )
+            if (ticket.available){
+                return ( 
+                    <div>
+                        <li key={ticket.id} className="list-group-item">
+                            {props.user
+                                ? 
+                                <Link to={`/tickets/${ticket.id}`}>
+                                    <p>{ticket.title} - ${ticket.price}</p>
+                                </Link>
+                                : 
+                                <p>{ticket.title} - ${ticket.price}</p>}
+                           
+                        </li>
+                    </div>
+                )
+            }else{
+                return ( 
+                    <div>
+                        <li key={ticket.id} className="list-group-item">
+                            {props.user
+                                ? 
+                                <div>
+                                    <p>{ticket.title} - ${ticket.price} - SOLD OUT</p>
+                                    
+                                </div>
+                                : 
+                                <p>{ticket.title} - ${ticket.price}</p>}
+                           
+                        </li>
+                    </div>
+                )
+            }
+           
         })
     }
 

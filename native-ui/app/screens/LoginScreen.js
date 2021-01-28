@@ -10,16 +10,21 @@ import {
   } from "../components/forms";
 import AppButton from "../components/AppButton";
 import { useFormikContext } from "formik";
+import AuthContext from "../auth/context";
+import useAuth from "../auth/useAuth";
 
 const validationSchema = Yup.object().shape({
-email: Yup.string().required().email().label("Email"),
-password: Yup.string().required().min(4).label("Password"),
+  email: Yup.string().required().email().label("Email"),
+  password: Yup.string().required().min(4).label("Password"),
 });
 
 function LoginScreen() {
+  const auth = useAuth()
+
   const handleSubmit = (values) => {
-    console.log(values);
-    //BACKEND - post user request goes here
+    // TODO: once backend is ready this will nee to do api call
+    const result = '' // api.l
+    auth.logIn(values.email) // hacked way of instead of including token jsut use email
   }
   
     return (
@@ -27,7 +32,7 @@ function LoginScreen() {
         <Form
           initialValues={{ email: "", password: "" }}
           validationSchema={validationSchema}
-          onSubmit={handleSubmit}
+          onSubmit={(values) => handleSubmit(values)}
         >
           <FormField
             autoCapitalize="none"

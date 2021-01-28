@@ -1,23 +1,19 @@
 import React from 'react'
-import {View, Text, StyleSheet} from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import Title from '../components/Title'
-import Screen from '../components/Screen'
 import Button from '../components/AppButton'
-import routes from '../navigation/routes'
-
-const TicketDetailScreen = ({navigation, route}) => {
-    const ticket = route.params
-
+import Screen from '../components/Screen'
+import useAuth from "../auth/useAuth";
+const LogoutScreen = () => {
+    const auth = useAuth()
     return (
         <Screen style={styles.background}>
-            <Title title={ticket.title}/>
-            <Text>Price - ${ticket.price}</Text>
-            <Text>Status - Available</Text>
+            <Title title="Would you like to logout?"/>
             <View style={styles.buttonsContainer} >
                 <Button 
-                    title="Purchase"
+                    title="Logout"
                     color="primary"
-                    onPress={()=>navigation.navigate(routes.PAYMENT, ticket)}
+                    onPress={()=>auth.logOut()}
                 />
             </View>
         </Screen>
@@ -35,5 +31,4 @@ const styles = StyleSheet.create({
         width: "100%",
     },
 });
-
-export default TicketDetailScreen
+export default LogoutScreen
