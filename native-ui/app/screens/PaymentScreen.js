@@ -5,6 +5,7 @@ import Title from '../components/Title'
 import Button from '../components/AppButton'
 import CreditCardModal from '../components/CreditCardModal'
 
+
 const PaymentScreen = ({route}) => {
     const [modalVisible, setModalVisible] = useState(false)
     let ticket = route.params
