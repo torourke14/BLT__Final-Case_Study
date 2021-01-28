@@ -9,18 +9,19 @@ import TicketTimer from "./components/TicketTimer"
 import PaymentModal from './components/PaymentModal'
 import OrderList from "./components/OrderList"
 import SignOut from "./components/SignOut";
+import OrderView from "./components/OrderView"
+import Confirmation from "./components/Confirmation"
 
 import React, {useState} from "react" 
 
 import './App.css';
 
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
 } from "react-router-dom";
-import OrderView from "./components/OrderView"
 
 function App() {
 
@@ -58,6 +59,10 @@ function App() {
               <Route path="/signout">
                 <SignOut logout={setUserLogin}/>
               </Route>​
+              {/* <Route path = "confirmation/:orderID" render={props=> <Confirmation {...props} />} */}
+              <Route path="/confirmation">
+                <Confirmation/>
+              </Route>
             </Switch>
           </div>
       </div>
