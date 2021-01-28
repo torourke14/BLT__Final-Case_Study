@@ -18,7 +18,7 @@ app.get('/api/tickets/:id', (req, res) => {
   res.send(tickets[req.params.id] || []);
 });
 
-app.post('/api/tickets', async (req, res) => { //posts/:id/comments
+app.post('/api/tickets', async (req, res) => {
   const ticketId = randomBytes(4).toString('hex');
   const { title, price } = req.body;
 
@@ -28,14 +28,14 @@ app.post('/api/tickets', async (req, res) => { //posts/:id/comments
     price
   };
 
-  // await axios.post('http://event-bus-clusterip-svc:4005/events', {
-  //   type: 'TicketCreated',
-  //   data: {
-  //     id: ticketId,
-  //     title,
-  //     price
-  //   }
-  // });
+  await axios.post('http://event-bus-clusterip-svc:4005/events', {
+    type: 'TicketCreated',
+    data: {
+      id: ticketId,
+      title,
+      price
+    }
+  });
 
   res.status(201).send(tickets[ticketId]);
 });
@@ -50,44 +50,37 @@ app.put('/api/tickets/:id', async (req, res) => { //posts/:id/comments
     price
   };
 
-  // await axios.post('http://event-bus-clusterip-svc:4005/events', {
-  //   type: 'TicketUpdated',
-  //   data: {
-  //     id: ticketId,
-  //     title,
-  //     price
-  //   }
-  // });
+  await axios.post('http://event-bus-clusterip-svc:4005/events', {
+    type: 'TicketUpdated',
+    data: {
+      id: ticketId,
+      title,
+      price
+    }
+  });
 
   res.status(201).send(tickets[ticketId]);
 });
 
-// app.post('/events', async (req, res) => {
-//   console.log('Event Received:', req.body.type);
-//   const { type, data } = req.body;
-//   console.log('Received Event', req.body.type);
-//   if (type === 'CommentModerated') {
-//     const { postId, id, status, content } = data;
-//     const comments = tickets[postId];
+app.post('/events', async (req, res) => {
+  console.log('Event Received:', req.body.type);
+  const { type, data } = req.body;
+  console.log('Received Event', req.body.type);
+  if (type === 'TicketExpired') {
+    const { id } = data;
 
-//     const comment = comments.find(comment => {
-//       return comment.id === id;
-//     });
-//     comment.status = status;
+    delete tickets[id];
 
-//     await axios.post('http://event-bus-clusterip-svc:4005/events', {
-//       type: 'TicketUpdated',
-//       data: {
-//         id,
-//         status,
-//         postId,
-//         content
-//       }
-//     });
-//   }
+    await axios.post('http://event-bus-clusterip-svc:4005/events', {
+      type: 'TicketExpired',
+      data: {
+        id
+      }
+    });
+  }
 
-//   res.send({});
-// });
+  res.send({});
+});
 
 app.listen(4001, () => {
   console.log('Listening on 4001');
