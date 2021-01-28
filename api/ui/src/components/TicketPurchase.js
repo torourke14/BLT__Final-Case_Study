@@ -49,7 +49,7 @@ const TicketPurchase = (props) => {
             
     }
 
-    let [time, setTime] = useState(3);
+    let [time, setTime] = useState(30);
     useEffect(() => {
         time > 0 && setTimeout(() => setTime(time - 1), 1000);
     },[time])
