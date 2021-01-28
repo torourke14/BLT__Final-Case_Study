@@ -8,19 +8,26 @@ import {
     AppFormField as FormField,
     SubmitButton,
   } from "../components/forms";
+import AppButton from "../components/AppButton";
+import { useFormikContext } from "formik";
 
 const validationSchema = Yup.object().shape({
 email: Yup.string().required().email().label("Email"),
 password: Yup.string().required().min(4).label("Password"),
 });
-  
+
 function LoginScreen() {
+  const handleSubmit = (values) => {
+    console.log(values);
+    //BACKEND - post user request goes here
+  }
+  
     return (
       <Screen style={styles.container}>
         <Form
-          initialValues={{ name: "", email: "", password: "" }}
-          onSubmit={(values) => console.log(values)}
-          //validationSchema={validationSchema}
+          initialValues={{ email: "", password: "" }}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
         >
           <FormField
             autoCapitalize="none"
@@ -40,8 +47,7 @@ function LoginScreen() {
             secureTextEntry
             textContentType="password"
           />
-          <SubmitButton title="Login" />
-          <SubmitButton title="Register" />
+          <SubmitButton title="Login" color="primary" />
         </Form>
       </Screen>
     );

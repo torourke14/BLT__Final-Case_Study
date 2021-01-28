@@ -16,12 +16,11 @@ const WelcomeScreen = ({ navigation }) => {
                     color="primary"
                     onPress={() => navigation.navigate(routes.LOGIN)}
                 />
-                <>{/*
                 <Button
                     title="Register"
                     color="secondary"
                     onPress={() => navigation.navigate(routes.REGISTER)}
-                />*/ }</>
+                />
             </View>
         </Screen>
     );
@@ -31,6 +30,7 @@ const styles = StyleSheet.create({
     background: {
       flex: 1,
       justifyContent: "flex-end",
+      width: "100%",
       alignItems: "center",
     },
     buttonsContainer: {
