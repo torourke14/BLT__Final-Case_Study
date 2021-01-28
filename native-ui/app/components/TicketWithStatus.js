@@ -11,13 +11,13 @@ import globalStyles from "../config/styles"
 const Ticket = ({ticket}) => {
     let status;
     if (ticket.status === "Created") {
-        status = globalStyles.success
+        status = [globalStyles.status, globalStyles.success]
     } else if (ticket.status === "AwaitingPayment") {
-        status = globalStyles.pending
+        status = [globalStyles.status, globalStyles.pending]
     } else if (ticket.status === "Cancelled") {
-        status = globalStyles.cancelled
+        status = [globalStyles.status, globalStyles.cancelled]
     } else if (ticket.status === "Completed") {
-        status = globalStyles.completed
+        status = [globalStyles.status, globalStyles.completed]
     }
     
     return (
