@@ -9,8 +9,6 @@ import navigationTheme from "./app/navigation/navigationTheme";
 import { navigationRef } from "./app/navigation/rootNavigation";
 import AuthNavigator from './app/navigation/AuthNavigator';
 
-
-
 export default function App() {
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);
@@ -19,7 +17,7 @@ export default function App() {
     // TODO: implement auth
     // 
     // for testing "while logged in" until we have comm with backend, just uncomment:
-    // const user = { "email": "test", "password": "test" }
+    const user = { "email": "test", "password": "test" }
     // 
     // const user = await authStorage.getUser();
     if (user) setUser(user);

@@ -3,6 +3,7 @@ import {ImageBackground, StyleSheet, View, Image, Text} from 'react-native'
 import Button from '../components/AppButton'
 import Screen from '../components/Screen'
 import routes from '../navigation/routes'
+
 const WelcomeScreen = ({ navigation }) => {
     return (
         <Screen style={styles.background}>
