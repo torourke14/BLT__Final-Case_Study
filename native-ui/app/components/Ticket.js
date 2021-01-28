@@ -1,5 +1,7 @@
 import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, ImageBackground } from 'react-native'
+import colors from "../config/colors"
+import globalStyles from "../config/styles"
 
 /**
  * Ticket
@@ -9,22 +11,17 @@ import { View, StyleSheet, Text } from 'react-native'
 const Ticket = ({ticket}) => {
     
     return (
-        <View style={styles.listing}>
-            <Text style={styles.text}>{ticket.title} - ${ticket.price}</Text>
+        
+        <View style={globalStyles.listing}>
+            <ImageBackground source={require('../assets/ticket.png')}
+                             style={globalStyles.bg}
+            >
+                <Text style={globalStyles.price}>${ticket.price}</Text>
+                <Text style={globalStyles.text}>{ticket.title}</Text>
+            </ImageBackground>
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    listing: {
-        flex: 1,
-        flexDirection: 'column',
-        padding: 10,
-    },
-    text: {
-        flex: 1,
-    }
-})
 
 export default Ticket
 

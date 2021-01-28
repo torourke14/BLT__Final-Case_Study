@@ -1,5 +1,5 @@
 import React from 'react'
-import {FlatList, View} from 'react-native'
+import {FlatList, View, StyleSheet} from 'react-native'
 import Title from '../components/Title'
 import Screen from '../components/Screen'
 import Ticket from '../components/Ticket'
@@ -21,7 +21,7 @@ const data = [
  */
 const TicketListingScreen = ({navigation}) => {
     return (
-        <Screen>
+        <Screen style={styles.background}>
             <Title title="Tickets For Sale" />
             <FlatList 
                 data={data}
@@ -41,4 +41,11 @@ const TicketListingScreen = ({navigation}) => {
     )
 }
 
+const styles = StyleSheet.create({
+    background: {
+        flex: 1,
+        width: "100%",
+        alignItems: "center",
+    },
+  });
 export default TicketListingScreen
