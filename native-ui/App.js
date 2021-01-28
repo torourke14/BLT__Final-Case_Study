@@ -7,10 +7,13 @@ import navigationTheme from "./app/navigation/navigationTheme";
 import { navigationRef } from "./app/navigation/rootNavigation";
 import AuthNavigator from './app/navigation/AuthNavigator';
 
+// AppNavigator -> For main app page
+// AuthNavigator -> For Login/Welcome screen page
+
 export default function App() {
   return (
     <NavigationContainer ref={navigationRef} theme={navigationTheme}>
-      <AuthNavigator />
+      <AppNavigator />
     </NavigationContainer>
   );
 }
