@@ -17,10 +17,7 @@ const TicketPurchase = (props) => {
         {id:3, title: 'movie', price: 23, userId: 'asdf', orderId: 'asdf', available: true}
         ]
     const ticket = _.find(tickets, {id: ticketID})
-    const BackButton = () =>{
-        let history = useHistory();
-        console.log(history)
-    }
+        //there should be no back button
     
     const renderBuyBtn = () => {
         if (ticket.available){
@@ -42,7 +39,6 @@ const TicketPurchase = (props) => {
             <h1>{ticket.price}</h1>
             <h1>{ticketID}</h1>
             {renderBuyBtn()}
-            {BackButton()}
         </div>
 
     )
