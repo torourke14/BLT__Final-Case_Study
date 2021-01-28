@@ -8,6 +8,7 @@ Sign up router for StubHub clone.
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const User = require('../models/user');
+//const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
@@ -17,7 +18,7 @@ router.post('/api/users/signup', [
             .withMessage('Email is invalid, provide a valid email address.'),
         body('password')
             .trim()
-            
+            .notEmpty()
             //6 character minimum for passwords.
             .isLength({min: 6})
             .withMessage('Password must be at least 6 characters in length!')

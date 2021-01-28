@@ -6,39 +6,36 @@ metadata:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/use-regex: 'true'
 rules:
-- host: cheapticketsnow.com
+- host: ticketingwblt.com
   http:
     paths:
     - path: /auth
-        pathType: Exact
-        backend:
-          serviceName: auth-clusterip-svc
-          servicePort: 5000
+      pathType: Exact
+      backend:
+        serviceName: auth-clusterip-svc
+        servicePort: 5000
     - path: /?(.*)
-        backend:
-          serviceName: client-clusterip-svc
-          servicePort: 3000
+      backend:
+        serviceName: client-clusterip-svc
+        servicePort: 3000
     - path: /orders
-        pathType: Exact
-        backend:
-          serviceName: query-clusterip-svc
-          servicePort: 3500
+      pathType: Exact
+      backend:
+        serviceName: query-clusterip-svc
+        servicePort: 3500
     - path: /orders/create
-        backend:
-          serviceName: orders-clusterip-svc
-          servicePort: 4000
+      backend:
+        serviceName: orders-clusterip-svc
+        servicePort: 4000
     - path: /tickets
-        backend:
-          serviceName: tickets-clusterip-svc
-          servicePort: 4001
+      backend:
+        serviceName: tickets-clusterip-svc
+        servicePort: 4001
     - path: /payments
-        backend:
-          serviceName: payments-clusterip-svc
-          servicePort: 4002
-    
+      backend:
+        serviceName: payments-clusterip-svc
+        servicePort: 4002
     - path: /expiration
-        backend:
-          serviceName: moderate-clusterip-svc
-          servicePort: 4003
-      
-                    
+      backend:
+        serviceName: moderate-clusterip-svc
+        servicePort: 4003

@@ -15,7 +15,7 @@ require('dotenv').config()
 const db_url = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PW}@e-tickets-cluster.ovpau.mongodb.net/${process.env.MONGO_MAIN}?retryWrites=true&w=majority`
 
 // --- db connection ---
-mongoose.connect(db_url, { 
+await mongoose.connect(db_url, { 
     useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true 
 });
 app.locals.db = mongoose.connection;
@@ -44,7 +44,7 @@ const handleEvent = (type, data) => {
             userId: "?????",
             orderId: undefined
         });
-
+        
         if (newTicket.acknowledged) {
             return newTicket.insertedId;
         }
