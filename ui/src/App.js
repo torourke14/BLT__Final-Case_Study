@@ -23,11 +23,11 @@ import {
 
 function App() {
 
-  //is user logged in
-  const [user, setUser] = useState(false);
+  //sets logged in user
+  const [user, setUser] = useState("");
 
-  let checkLogin = (isUser) => {
-    setUser(isUser);
+  let setUserLogin = (userSignin) => {
+    setUser(userSignin);
   }
 
 
@@ -43,7 +43,7 @@ function App() {
               <SignUp/>
             </Route>
             <Route path="/signin">
-              <SignIn user={user} checkLogin={checkLogin}/>
+              <SignIn setUserLogin={setUserLogin}/>
             </Route>
             <Route path="/tickets/new">
               <NewTicket/>
@@ -52,7 +52,7 @@ function App() {
               <OrderList/>
             </Route>
             <Route path="/signout">
-              <SignOut logout={checkLogin}/>
+              <SignOut logout={setUserLogin}/>
             </Route>
           </Switch>
       </div>

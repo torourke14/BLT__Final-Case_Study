@@ -8,8 +8,6 @@ function SignIn(props) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	const {user} = props.user
-
 	let history = useHistory();
 
 	const handleSubmit = (event) => {
@@ -18,7 +16,10 @@ function SignIn(props) {
 		//BACKEND - post user request goes here
 		console.log(email, password);
 
-		props.checkLogin(true)
+		props.setUserLogin(email,{
+			"email": email,
+			"password": password
+		})
 
 		//redirects to home page after login is successful
 		history.push("/")
