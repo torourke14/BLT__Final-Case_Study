@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const { randomBytes } = require('crypto');
 const cors = require('cors');
 const axios = require('axios');
-
+const { stringify } = require('querystring');
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
@@ -40,6 +40,25 @@ async (req, res, next) => {
         res.send({ sucesss: true });
     }
 );
+
+//charge created
+app.post('/api/orders/payment', async(req, res) => {
+  let { body }= req
+  const newCharge = new Charge({...body})
+  await newCharge.save()
+    await axios.post('http://event-bus-clusterip-svc:4005/events', {
+      type:'OrderCharge',
+      data: {
+        orderId: order._id,
+        status: ['created', 'failed', 'completed'],
+        amount: number,
+        stripeId: string,
+        stripeRefundId: string
+      }
+    });
+  res.status(201).json({ payment })
+  })
+
 
 app.listen(4002, () => {
   console.log('Listening on 4002');
