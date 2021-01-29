@@ -8,7 +8,9 @@ Sign up router for StubHub clone.
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const User = require('../models/user');
-//const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+
+require('dotenv').config();
 
 const router = express.Router();
 
@@ -38,7 +40,7 @@ router.post('/api/users/signup', [
 
         //If user exists send warning
         if(existingUser){
-            console.log("WARNING - This user email already exists in the database.");
+            console.log(`WARNING - An account for the email \'${email}\' already exists, please choose another.`);
             return res.send({});
 
         //Else create new user, hash password, and save to database.
@@ -47,6 +49,18 @@ router.post('/api/users/signup', [
 
             //Save user to database.
             await user.save();
+
+            //Create JSON web token
+            const userJwt = jwt.sign({
+                id: user.id,
+                email: user.email
+            }, `${process.env.JWT_KEY}`);
+
+            //Store jwt on session object
+            req.session = {
+                jwt: userJwt
+            };
+
             res.status(201).send(user);
         }
     }
