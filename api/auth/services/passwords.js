@@ -7,7 +7,6 @@ class Password {
     const salt = randomBytes(8).toString('hex');
     const buf = (await scryptAsync(password, salt, 64));
     const hashedPw = `${buf.toString('hex')}.${salt}`;
-    console.log(`Hashed PW: ${hashedPw}`)
     return hashedPw;
   }
 

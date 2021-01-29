@@ -7,17 +7,18 @@ import {
     SubmitButton,
 } from "../components/forms";
 import * as Yup from "yup";
-
+import routes from '../navigation/routes'
 const validationSchema = Yup.object().shape({
     card: Yup.string().required().label("Credit Card"),
     expiration: Yup.string().required().label("Expiration"),
 });
 
-const ModalContent = () => {
+const ModalContent = ({setModal}) => {
     const submitCreditCard = (card) => {
         // This will make a api POST /api/orders/payment
 
         console.log("Credit card pushed", card)
+        setModal(false)
     }
 
     return (
