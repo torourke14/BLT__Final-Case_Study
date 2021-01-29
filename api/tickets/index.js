@@ -13,22 +13,14 @@ const axios = require('axios');
 const { body, validationResult } = require('express-validator');
 const { Ticket } = require('./models/ticket.js');
 const mongoose = require('mongoose');
-
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// const uri = "mongodb+srv://admin:12345@cluster0.l6u68.mongodb.net/<dbname>?retryWrites=true&w=majority";
 const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PW}@e-tickets-cluster.ovpau.mongodb.net/${process.env.MONGO_TICKETS_DB}?retryWrites=true&w=majority`
 mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
 
-// function errorHandler(err, req, res, next) {
-//   console.log('ERROR! - Something went wrong', err)
-
-//   res.status(400).send({
-//       message: `ERROR! - ${err.message}`
-//   })
-// }
+// GET
 
 app.get('/api/tickets', (req, res) => {
     Ticket.find({}, (err, tickets) => {
@@ -37,16 +29,15 @@ app.get('/api/tickets', (req, res) => {
     })
 });
 
-
 app.get('/api/tickets/:id', (req, res) => {
-
     Ticket.findById(req.params.id, (err, ticket) => {
         if (err) throw err
         res.send(ticket || [])
     })
-
 });
 
+
+// POST
 
 app.post('/api/tickets', [
     body('title').not().isEmpty().withMessage('Title is required'),
@@ -57,19 +48,17 @@ app.post('/api/tickets', [
     async (req, res) => {
 
     const errors = validationResult(req);
-
-    //Send errors to user
+    // Send errors to user
     const error = new Error('Invalid title or price!');
     error.descriptors = errors.array();
-
     if(!errors.isEmpty()){
         error.descriptors = errors.array();
         res.status(201).send(error.descriptors[0].msg);
         return;
     }
 
+    // Retrieve input and create new ticket
     const { title, price } = req.body;
-
     const ticket = new Ticket({
         title,
         price
@@ -89,6 +78,8 @@ app.post('/api/tickets', [
 });
 
 
+// PUT
+
 app.put('/api/tickets/:id', [
     body('title').not().isEmpty().withMessage('Title is required'),
     body('price')
@@ -98,7 +89,7 @@ app.put('/api/tickets/:id', [
     async (req, res) => { 
 
     const errors = validationResult(req);
-    //Send errors to user
+    // Send errors to user
     const error = new Error('Invalid title or price!');
     error.descriptors = errors.array();
     if(!errors.isEmpty()){
@@ -107,7 +98,7 @@ app.put('/api/tickets/:id', [
         return;
     }
 
-    const ticketId = req.params.id;
+    // Retrieve ticket and check edge cases
     const ticket = await Ticket.findById(req.params.id);
     if (ticket == undefined) {
         res.status(201).send('No valid ticket found');
@@ -118,6 +109,7 @@ app.put('/api/tickets/:id', [
         return;
     }
 
+    // Retrieve input and set on ticket
     const { title, price } = req.body;
     ticket.set({
         title,
@@ -137,12 +129,16 @@ app.put('/api/tickets/:id', [
     res.status(201).send(ticket);
 });
 
+
+// Events
+
 app.post('/events', async (req, res) => {
     const { type, data } = req.body;
     console.log('Received Event', req.body.type);
     if (type === 'OrderCreated') {
+        
+        // Set order id on ticket - this will prevent further edits unless released
         const { ticketId, orderId } = data;
-
         const ticket = await Ticket.findById(ticketId);
         ticket.set({
             orderId
@@ -160,8 +156,9 @@ app.post('/events', async (req, res) => {
         });
     }
     else if (type === 'OrderCancelled') {
+
+        // Remove order id from ticket - this will allow further edits
         const { ticketId } = data;
-        
         const ticket = await Ticket.findById(ticketId);
         ticket.set({
             orderId: undefined
