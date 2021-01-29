@@ -3,13 +3,12 @@ import {View, Text, StyleSheet} from 'react-native'
 import Screen from '../components/Screen'
 import Title from '../components/Title'
 import * as Yup from "yup";
-
+import routes from '../navigation/routes'
 import {
     AppForm as Form,
     AppFormField as FormField,
+    SubmitButton,
 } from "../components/forms";
-
-import Button from '../components/AppButton'
 
 
 const validationSchema = Yup.object().shape({
@@ -21,11 +20,12 @@ const validationSchema = Yup.object().shape({
  * @description: Screen that renders a Creating a ticket to sell
  * 
  */
-const SellTicketsScreen = () => {
+const SellTicketsScreen = ({navigation}) => {
 
     const createTicket = (ticket) => {
         // this will make a api POST /api/tickets
         console.log("Ticket Created: ", ticket)
+        navigation.navigate(routes.TICKET_LIST, ticket)
     }
     
     return (
@@ -51,7 +51,7 @@ const SellTicketsScreen = () => {
                     />
                 </View>
                 <View style={styles.buttonsContainer} >
-                    <Button 
+                    <SubmitButton 
                         title="Submit" 
                         color="primary"/>
                 </View>

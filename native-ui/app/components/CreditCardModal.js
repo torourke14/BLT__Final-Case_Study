@@ -30,7 +30,7 @@ const CreditCardModal = ({modalVisible, setModal}) => {
                     >
                         <Text style={styles.textStyle}>Cancel</Text>
                     </TouchableHighlight>
-                    <ModalContent />
+                    <ModalContent setModal={setModal}/>
                 </View>
             </View>
         </Modal>
