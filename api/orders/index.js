@@ -42,6 +42,13 @@ app.post('/',  async (req, res) => {
  
     const order = new Order({ ...body})//order object with broken json data
     await order.save()//puts it in database
+    await axios.post('http://event-bus-clusterip-svc:4005/events', {
+            type: "OrderCreated",
+            data: {
+              orderId : order._id,
+              ticketId: order.ticketId
+            }
+          });
     res.status(201).json({ order })
 })
 //please look at this one, it takes a long time to load, Nag put some documentation in Slack
@@ -55,32 +62,22 @@ app.post('/:id/update',  async (req, res) => {
 })
 //deletes an item by its ticket id
 app.delete('/:id',  async (req, res) => {
-    let body = { ticketId: req.params.id }
+    let body = { _id: req.params.id }
  
     const condition = { ...body}//the orders with that id need to be deleted
-    Order.deleteMany(condition, (err, orders) => {
+    Order.deleteOne(condition, (err, orders) => {
         if (err) throw err
         console.log("Here are all the orders")
         console.log(orders)
+        await axios.post('http://event-bus-clusterip-svc:4005/events', {
+            type: "OrderCancelled",
+            data: {
+              orderId : req.params.id
+            }
+          });
+        
         res.status(201).json({ orders })
     })
-    
-})
-//these are a few sample methods to start off the DB, feel free to delete them 
-const order = new Order({
-    userId: 1, status:  'pendin', ticketId: 1, expiresAt: new Date()
-
-})
-
-order.save().then(() => {
-    console.log("new order saved");
-    // // get all customers
-})
-//deletes everything before starting the datbase
-Order.deleteMany({}, (err, orders) => {
-    if (err) throw err
-    console.log("Here are all the orders")
-    console.log(orders)
     
 })
 
@@ -97,3 +94,4 @@ app.listen(port, () => console.log(`Listening on port ${port}...`));
 app.listen(4000, () => {
   console.log('orders service listening on 4000');
 });
+
