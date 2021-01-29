@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: query
+  name: query-depl
 spec:
   replicas: 1
   selector:
@@ -14,8 +14,7 @@ spec:
     spec:
       containers:
         - name: query
-          image: tannero/query
-
+          image: tannero/query:latest
 ---
 apiVersion: v1
 kind: Service

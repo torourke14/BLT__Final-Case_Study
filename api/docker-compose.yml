@@ -1,8 +1,28 @@
 version: '3'
 services:
-  node-api:
+  auth-srvc:
     image: ""
-    container_name: node-api-container
+    container_name: 
+    ports:
+      - 5432:5432
+  auth-srvc:
+    image: ""
+    container_name: 
+    ports:
+      - 5432:5432
+  auth-srvc:
+    image: ""
+    container_name: 
+    ports:
+      - 5432:5432
+  auth-srvc:
+    image: ""
+    container_name: 
+    ports:
+      - 5432:5432
+  auth-srvc:
+    image: ""
+    container_name: 
     ports:
       - 5432:5432
   web:

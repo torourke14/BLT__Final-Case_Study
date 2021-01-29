@@ -2,7 +2,8 @@ FROM node:alpine
 
 WORKDIR /app
 
-ENV PATH /app/node_modules/.bin:$PATH
+ENV PATH /app/node_modules/.bin:$PATH \
+    BASE_URL = ticketswblt.com
 
 # install app dependencies
 COPY package.json ./

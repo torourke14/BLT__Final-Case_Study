@@ -14,8 +14,7 @@ spec:
     spec:
       containers:
         - name: event-bus
-          image: nagabhushanamn/event-bus
-
+          image: 101497/event-bus:latest
 ---
 apiVersion: v1
 kind: Service

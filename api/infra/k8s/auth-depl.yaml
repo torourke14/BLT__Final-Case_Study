@@ -1,34 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-	name: auth-depl
+  name: auth-depl
 spec:
-	replicas: 1
-   	selector:
-      matchLabels:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
         app: auth
-   	template:
-      metadata:
-        labels:
-          app: auth
-      spec:
-        containers:
-          - name: auth
-            image: tannero/auth
-      env:
-        - name: TOKEN
-          value: letmeinpleasekthxbye
+    spec:
+      containers:
+        - name: auth
+          image: 101497/auth:latest
 ---
 apiVersion: v1
 kind: Service
 metadata:
-   	name: auth-clusterip-svc
+  name: auth-clusterip-svc
 spec:
-   	type: ClusterIP
-   	selector:
-      app: auth
-   	ports:
-      - name: auth
-        port: 5000
-        protocol: TCP
-        targetPort: 5000
+  type: ClusterIP
+  selector:
+    app: auth
+  ports:
+    - name: auth
+      port: 4005
+      protocol: TCP
+      targetPort: 4005

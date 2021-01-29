@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tickets
+  name: tickets-depl
 spec:
   replicas: 1
   selector:
@@ -14,8 +14,7 @@ spec:
     spec:
       containers:
         - name: tickets
-          image: tannero/tickets
-
+          image: tannero/tickets:latest
 ---
 apiVersion: v1
 kind: Service

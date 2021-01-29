@@ -32,81 +32,64 @@ db.on('error', console.error.bind(console, 'MongoDB connection error'));
 */
 const handleEvent = (type, data) => {
     if (type === "TicketCreated") {
-        /* from POST /tickets 
-            -- INSERT tickets
-        */         
+        // FROM /tickets -> /event-bus:
+            //-- INSERT into tickets         
         var { ticketId, title, price } = data;
 
-        var newTicket = app.locals.db.tickets.insertOne({ 
+        app.locals.db.tickets.insertOne({ 
             _id: ticketId, 
             title: title, 
             price: price, 
             userId: "?????",
             orderId: undefined
         });
-        
-        if (newTicket.acknowledged) {
-            return newTicket.insertedId;
-        }
-        return {}
     }
     if (type === "TicketUpdated") { 
-        /* from DELETE /tickets/:id
-            -- UPDATE ticket[ticketId].title|price
-        */
+        // FROM /tickets/:id -> /event-bus:
+            //-- UPDATE ticket[ticketId].title+price
+            //--> assumes ticket has empty orderId
+        
         const { ticketId, title, price } = data;
 
-        // Fails if valid/non-zero orderId is present
-        var updatedTicket = app.locals.db.tickets.findOneAndUpdate(
+        app.locals.db.tickets.findOneAndUpdate(
             { "_id": ticketId, "orderId": undefined },
             { $set: { "title": title, "price": price } },
             { returnNewDocument: true }
-        )
-
-        if (updatedTicket.acknowledged) {
-            return updatedTicket
-        }
-        return {}
+        );
     }
     if (type === "OrderCreated") {
-        /* FROM POST /orders:
-            -- UPDATE tickets[ticketId].OrderId
-            -- INSERT into orders
-        */
+        // FROM /orders -> /event-bus:
+            //-- UPDATE tickets[ticketId].OrderId
+            //-- INSERT *FULL* order into orders
+        
         const { orderId, ticketId } = data;
 
         app.locals.db.tickets.findOneAndUpdate(
-            { "_id": ticketId, "orderId": 0},
-            { $set: { "orderId": orderId } }, /* || res.insertedId */
+            { "_id": ticketId, "orderId": undefined },
+            { $set: { "orderId": orderId } },
             { returnNewDocument: true }
         )
         .then(res => {
             if (res.orderId === 0) {
-                throw "Order already created."
+                throw "Query failure in OrderCreated ticket update"
             }
             app.locals.db.orders.insertOne({ 
                 _id: orderId,
                 userId: "???????????????",
                 status: "Created", 
                 ticketID: ticketId
-            })
-        })
-        .then(res => {
-            if (res.acknowledged) {
-                return order
-            }
-            return {}
+            });
         })
         .catch(error => {
-            console.error.bind(console, 'MongoDB failed Order Cancel')
+            console.error.bind(console, `MongoDB: failure in OrderCreated: ${error}`)
         });
     }
     if (type === "OrderCancelled") {
-        /* FROM /orders/:id 
-            -- DELETE  payments[orderId] (if any)
-            -- UPDATE  orders[orderId].status = "Cancelled"
-            -- UPDATE  tickets[orderId=orderId].orderId = 0
-        */
+        // FROM /orders/:id =-> /event-bus:
+            //-- DELETE  payments[orderId] (if any)
+            //-- UPDATE  orders[orderId].status = "Cancelled"
+            //-- UPDATE  tickets[orderId=orderId].orderId = undefined
+        
         const { orderId } = data;
 
         app.locals.db.payments.deleteOne(
@@ -114,7 +97,7 @@ const handleEvent = (type, data) => {
         )
         .then(res => {
             if (!res.acknowledged) {
-                throw "Order couldnt be cancelled."
+                throw "Query failure in OrderCancelled payments"
             }
             app.locals.db.orders.findOneAndUpdate(
                 { "_id": orderId },
@@ -124,7 +107,7 @@ const handleEvent = (type, data) => {
         })
         .then(res => {
             if (res.status !== "Cancelled") {
-                throw "Couldnt complete OrderCancel"
+                throw "Query failure in OrderCancelled orders"
             }
             app.locals.db.tickets.findOneAndUpdate(
                 { orderId: orderId },
@@ -132,21 +115,15 @@ const handleEvent = (type, data) => {
                 { returnNewDocument: true }
             );
         })
-        .then(res => {
-            if (res.orderId === undefined) {
-                return order
-            }
-            return {}
-        })
         .catch(error => {
-            console.error.bind(console, `MongoDB failed OrderCancel: ${error}`)
+            console.error.bind(console, `MongoDB failure on OrderCancel: ${error}`)
         });
     }
     if (type === "OrderExpired") {
-        /* FROM /expiration
-            -- UPDATE db.orders[orderId].status = "Cancelled" ---------------------- "Cancelled" ?????????
-            -- UPDATE db.tickets[orderId=orderId].orderId to 0
-        */
+        // FROM /moderation -> /event-bus:
+            //-- UPDATE db.orders[orderId].status = "Cancelled"
+            //-- UPDATE db.tickets[orderId=orderId].orderId = undefined
+        
         const { orderId } = data;
 
         app.locals.db.tickets.findOneAndUpdate(
@@ -156,24 +133,24 @@ const handleEvent = (type, data) => {
         )
         .then(res => {
             if (res.orderId !== undefined) {
-                throw "Couldnt expire Order"
+                throw "Query failure in OrderExpired ticket update"
             }
-            return app.locals.db.orders.findOneAndUpdate(
+            app.locals.db.orders.findOneAndUpdate(
                 { "_id": orderId },
                 { $set: { status: "Expired" } },
                 { returnNewDocument: true }
             )
         })
         .catch(error => {
-            console.error.bind(console, 'MongoDB failed Order Cancel')
+            console.error.bind(console, `MongoDB failure on OrderExpired: ${error}`)
         });
     }
 
     if (type === "ChargeCreated") {
-        /* FROM /expirations
-            -- INSERT db.payments
-            -- UPDATE db.orders[orderId].status = "Completed"
-        */
+        // FROM /payments --> /event-bus:
+            //-- INSERT db.payments
+            //-- UPDATE db.orders[orderId].status = "Completed" -----?????
+
         const {/*orderId,*/ status, amount, stripeId, stripeRefundId } = data;
         
         app.locals.db.payments.insertOne({ 
@@ -183,24 +160,19 @@ const handleEvent = (type, data) => {
             stripeId: stripeId, 
             stripeRefundId: stripeRefundId
         });
-
-        //order.status = "Created" 
-        // --------------------------------??????
     } 
 
     if (type === "UserCreated") {
-        /* ACTIONS: 
-            -- INSERT user into db.users
-        */
+        //-- FROM /user/signup --> /event-bus:
+            //-- INSERT user into db.users
         /* ---------------------------------This has to be moved?? */
         const { email, password } = data;
         
         return app.locals.db.users.insertOne({ email, password });
     }
     if (type === "UserUpdated") {
-        /* ACTIONS: 
-            -- UPDATE db.users[orderId]??? current_user???
-        */
+        // FROM /auth/sign[in/out] --> /event-bus
+            //-- UPDATE db.users[orderId]??? current_user???
         /* ------------------------------This has to be moved?? */
         const { email, password } = data;
 
@@ -208,71 +180,83 @@ const handleEvent = (type, data) => {
     }
 };
 
-/*  Title: handleEvent 
-*   Params
-*   Return:
-*   Description: 
-*/
 app.post('/events', (req, res) => {
     const { type, data } = req.body;
     console.log('Event Received:', req.body.type);
-    //handleEvent(type, data);
-    //res.send({});
-    
-    res.send(handleEvent(type, data));
+
+    handleEvent(type, data)
+
+    res.send({ status: 'OK' });
 });
 
 
-/*  Title: handleEvent 
-*   Params
-*   Return:
-*   Description: 
+
+/*  
+*   Title: GET orders/:id
+*   Params: orderId
+*   Return: db.orders[orderId]
+*   Description: Get details about a specific order
 */
-app.get('/users/currentuser', (req, res) => {
-    var user = db.user.find({ "email": req.body.email, "password": req.body.password})
-    res.send(orders);
-});
-
-
-
-/*  Title: handleEvent 
-*   Params
-*   Return:
-*   Description: 
-*/
-app.get('/tickets', (req, res) => {
-    var tickets = db.tickets.find();
-    res.send(tickets);
-});
-
-app.get('/tickets/:id', (req, res) => {
-    var ticket = db.tickets.find({ 
-        "_id": req.params.id
+app.get('/orders/:id', (req, res) => {
+    var order = db.payments.find({
+        "_id": req.body.orderId
     });
-    res.send(ticket);
+    var ticket = db.tickets.find({
+        "orderId": req.body.orderId
+    });
+
+    res.send({
+        userId: order
+    });
 });
 
-  
-/*
-*   Title: handleEvent 
-*   Params
-*   Return:
-*    Description: 
+
+/*  
+*   Title: Get User Orders
+*   Params: none
+*   Return: db.orders[userId]
+*   Description: Get order info for a specific user
 */
+/*------------------------
+HANDLE IN ORDERS CLUSTER 
+-----------------------------
 app.get('/orders', (req, res) => {
     var user_orders = db.orders.find({
         "userId": req.body.userId
     })
     res.send(user_orders);
 });
+*/
 
-app.get('/orders/:id', (req, res) => {
-    var order = db.payments.find({
-        "_id": req.body.orderId
-    });
-    res.send(order);
+
+/*  Title: GET tickets 
+*   Params: none
+*   Return: All Tickets
+*/
+/*------------------------
+HANDLE IN TICKETS
+-----------------------------
+app.get('/tickets', (req, res) => {
+    var tickets = db.tickets.find();
+    res.send(tickets);
 });
+*/
 
+
+/*  Title: GET tickets/:id
+*   Params: ticketId
+*   Return: tickets[ticketId]
+*/
+/*------------------------
+HANDLE IN TICKETS
+-----------------------------
+app.get('/tickets/:id', (req, res) => {
+    var ticket = db.tickets.find({ 
+        "_id": req.params.id
+    });
+    res.send(ticket);
+});
+*/
 
 
 app.listen(3500, async () => {
@@ -285,54 +269,3 @@ app.listen(3500, async () => {
         handleEvent(event.type, event.data);
      }
 });
-
-
-/*
-function invokeExpiration(ticketId) {
-    axios.delete('http://event-bus-clusterip-svc:4005/events', {
-        type: 'OrderExpired',
-        data: { ticketId }
-    })
-};
-
-
-const expiresAt = setTimeout(invokeExpiration.bind(null, ticketId), 900000);
-
-const client = redis.createClient();
-
-// Set a value
-client.set('key', ticketId);
-// Expire in 15 minutes
-client.expire('string key', 900000);
-
-// Runs every second until the timeout occurs on the value
-var expirationTimer = setInterval(function() {
-    client.get('string key', function (err, reply) {
-        if(reply) {
-            console.log('I live: ' + reply.toString());
-            client.ttl('string key', writeTTL);
-        } else {
-            clearTimeout(expirationTimer);
-            //console.log('I expired');
-            client.quit();
-        }
-    });
-}, 1000);
-
-function writeTTL(err, data) {
-    console.log('Time until expiration: ' + toString(data / 1000));
-}
-----------------------------------------------------------------------
-function setObject (key, obj, expireSeconds = null) {
-    this.client.set(key, JSON.stringify(obj), (err, res) => {
-      if (err) {
-        this.logger.error(err);
-        return;
-      }
-      this.logger.info(`set ${key} for ${expireSeconds} seconds`);
-    });
-    if (expireSeconds) {
-      this.client.expire(key, expireSeconds);
-    }
-  }
-*/

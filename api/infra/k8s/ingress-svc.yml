@@ -1,43 +1,42 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-srv
+  name: ingress-svc
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/use-regex: 'true'
-rules:
-- host: ticketingwblt.com
-  http:
-    paths:
-    - path: /auth
-      pathType: Exact
-      backend:
-        serviceName: auth-clusterip-svc
-        servicePort: 5000
-    - path: /?(.*)
-      backend:
-        serviceName: client-clusterip-svc
-        servicePort: 3000
-    - path: /tickets
-      pathType: Exact
-      backend:
-        serviceName: query-clusterip-svc
-        servicePort: 3500
-    - path: /tickets/:id
-      backend:
-        serviceName: tickets-clusterip-svc
-        servicePort: 4001
-
-    - path: /orders
-      backend:
-        serviceName: orders-clusterip-svc
-        servicePort: 4000
-    
-    - path: /payments
-      backend:
-        serviceName: payments-clusterip-svc
-        servicePort: 4002
-    - path: /expiration
-      backend:
-        serviceName: moderate-clusterip-svc
-        servicePort: 4003
+spec:
+  rules:
+    - host: ticketingwblt.com
+      http:
+        paths:
+          - path: /auth
+            pathType: Exact
+            backend:
+              serviceName: auth-clusterip-svc
+              servicePort: 5000
+          - path: /?(.*)
+            backend:
+              serviceName: client-clusterip-svc
+              servicePort: 3000
+          - path: /orders/:id
+            pathType: Exact
+            backend:
+              serviceName: query-clusterip-svc
+              servicePort: 3500
+          - path: /orders
+            backend:
+              serviceName: orders-clusterip-svc
+              servicePort: 4000
+          - path: /tickets
+            backend:
+              serviceName: tickets-clusterip-svc
+              servicePort: 4001
+          - path: /payments
+            backend:
+              serviceName: payments-clusterip-svc
+              servicePort: 4002
+          - path: /expiration
+            backend:
+              serviceName: moderation-clusterip-svc
+              servicePort: 4003

@@ -1,32 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: moderate
+  name: moderation-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: moderate
+      app: moderation
   template:
     metadata:
       labels:
-        app: moderate
+        app: moderation
     spec:
       containers:
-        - name: moderate
-          image: tannero/expir-moderation
-
+        - name: moderation
+          image: tannero/moderation:latest
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: moderate-clusterip-svc
+  name: moderation-clusterip-svc
 spec:
   type: ClusterIP
   selector:
-    app: moderate
+    app: moderation
   ports:
-    - name: moderate
+    - name: moderation
       port: 4003
       protocol: TCP
       targetPort: 4003

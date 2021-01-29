@@ -11,3 +11,4 @@ spec:
       port: 4001
       protocol: TCP
       targetPort: 4001
+# DEVELOPMENT ONLY

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: tannero/client
+          image: tannero/client:latest
 ---
 apiVersion: v1
 kind: Service

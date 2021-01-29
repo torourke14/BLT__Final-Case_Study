@@ -20,7 +20,6 @@ mongoose.connect(db_url, {
 app.locals.db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error'));
-//const events = [];
 
 
 app.post('/events', (req, res) => {
@@ -33,7 +32,7 @@ app.post('/events', (req, res) => {
   axios.post('http://payments-clusterip-svc:4002/events', event);
 
   axios.post('http://query-clusterip-svc:3500/events', event);
-  axios.post('http://moderate-clusterip-svc:4003/events', event);
+  axios.post('http://moderation-clusterip-svc:4003/events', event);
 
   axios.post('http://auth-clusterip-svc:5000/events', event);
 

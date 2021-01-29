@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: payments
+  name: payments-depl
 spec:
   replicas: 1
   selector:
@@ -14,8 +14,7 @@ spec:
     spec:
       containers:
         - name: payments
-          image: tannero/payments
-
+          image: tannero/payments:latest
 ---
 apiVersion: v1
 kind: Service
