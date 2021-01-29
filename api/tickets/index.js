@@ -62,7 +62,7 @@ app.post('/api/tickets', [
     const ticket = new Ticket({
         title,
         price,
-        userId: "[Placeholder]"
+        userId: "1"
     });
     await ticket.save();
 
@@ -110,7 +110,7 @@ app.put('/api/tickets/:id', [
         res.status(201).send('Cannot edit a reserved ticket'); 
         return;
     }
-    if (ticket.userId != "[Placeholder]") {
+    if (ticket.userId != "1") {
         res.status(201).send('User does not have permission to edit'); 
         return;
     }
@@ -120,19 +120,19 @@ app.put('/api/tickets/:id', [
     ticket.set({
         title,
         price,
-        userId: "[Placeholder]"
+        userId: "1"
     });
     await ticket.save();
 
-    await axios.post('http://event-bus-clusterip-svc:4005/events', {
-        type: 'TicketUpdated',
-        data: {
-        ticketId: ticket.id,
-        title,
-        price,
-        userId: ticket.userId
-        }
-    });
+    // await axios.post('http://event-bus-clusterip-svc:4005/events', {
+    //     type: 'TicketUpdated',
+    //     data: {
+    //     ticketId: ticket.id,
+    //     title,
+    //     price,
+    //     userId: ticket.userId
+    //     }
+    // });
 
     res.status(201).send(ticket);
 });
