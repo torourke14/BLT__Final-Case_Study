@@ -27,10 +27,9 @@ router.post('/api/users/signup', [
     ],
     async (req, res) => {
         const errors = validationResult(req);
-
+        
         if(!errors.isEmpty()){
-            error.descriptors = errors.array();
-            throw error;
+            return res.status (400).send(errors.array());
         }
         
         //Query database for matching email address

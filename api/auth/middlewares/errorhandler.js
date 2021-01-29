@@ -1,4 +1,4 @@
-function errorHandler(err, req, res, next) {
+const errorHandler = (err, req, res, next) =>{
     console.log('ERROR! - Something went wrong', err)
 
     res.status(400).send({

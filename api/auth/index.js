@@ -18,6 +18,9 @@ const userSignOutRouter = require('./routes/signout');
 
 const errorHandler = require('./middlewares/errorhandler');
 
+//Config
+require('dotenv').config();
+
 //Router setup
 const app = express();
 app.use(bodyParser.json());
@@ -28,9 +31,6 @@ app.use(userSignOutRouter);
 
 //Middleware setup
 app.use(errorHandler);
-
-//Config
-require('dotenv').config();
 
 const startAuth = async () => {
 
