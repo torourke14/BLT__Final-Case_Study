@@ -12,7 +12,7 @@ app.post("/events", (req, res) => {
     console.log("Event Received:", req.body.type);
     const { type, data } = req.body;
 
-    if (type === "OrderCreated") {
+    if (type === "OrderCreated" && data.status === "Created") {
         let expiresAt = data.expiresAt;
         let now = new Date();
         let remainingTime = expiresAt - now;
@@ -20,7 +20,7 @@ app.post("/events", (req, res) => {
         // expiration feature using setTimeout ------------------
         setTimeout(() => {
             axios.post("http://event-bus-clusterip-svc:4005/events", {
-                type: "OrderCreated",
+                type: "OrderExpired",
                 data: {
                     userId: data.userId,
                     status: "Expired",
