@@ -8,61 +8,38 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PW}@e-tickets-cluster.ovpau.mongodb.net/${process.env.MONGO_PAYMENTS_DB}?retryWrites=true&w=majority`
+mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
+
 const paymentsByPostId = {};
+//posting new payments
+app.post('/api/payments', 
+    requireAuth,
+    [
+        body('token')
+        .not()
+        .isEmpty(),
+        validateRequest,
+    ], 
+async (req, res, next) => {
+    console.log("payment endpoint!")
+        const {token, orderId } = req.body;
 
-app.get('/posts/:id/comments', (req, res) => {
-  res.send(commentsByPostId[req.params.id] || []);
-});
+        const order = await Order.findByID(orderID);
 
-app.post('/posts/:id/comments', async (req, res) => {
-  const commentId = randomBytes(4).toString('hex');
-  const { content } = req.body;
+        if (!order) {
+            throw new NotFoundError();
+        }
+        if (order.userId !== currentUser.id) {
+            throw new NotAuthorizedError();
+        }
+        if (order.status === OrderStatus.Cancelled){
+            throw new BadRequestError('Cannot pay for an Cancelled order.');
+        }
 
-  const comments = commentsByPostId[req.params.id] || [];
-
-  comments.push({ id: commentId, content, status: 'pending' });
-
-  commentsByPostId[req.params.id] = comments;
-
-  await axios.post('http://event-bus-clusterip-svc:4005/events', {
-    type: 'CommentCreated',
-    data: {
-      id: commentId,
-      content,
-      postId: req.params.id,
-      status: 'pending'
+        res.send({ sucesss: true });
     }
-  });
-
-  res.status(201).send(comments);
-});
-
-app.post('/events', async (req, res) => {
-  console.log('Event Received:', req.body.type);
-  const { type, data } = req.body;
-  console.log('Received Event', req.body.type);
-  if (type === 'CommentModerated') {
-    const { postId, id, status, content } = data;
-    const comments = commentsByPostId[postId];
-
-    const comment = comments.find(comment => {
-      return comment.id === id;
-    });
-    comment.status = status;
-
-    await axios.post('http://event-bus-clusterip-svc:4005/events', {
-      type: 'CommentUpdated',
-      data: {
-        id,
-        status,
-        postId,
-        content
-      }
-    });
-  }
-
-  res.send({});
-});
+);
 
 app.listen(4002, () => {
   console.log('Listening on 4002');

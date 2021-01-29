@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 const router = require('express').Router();
-const { paymentSchhema } = require('../models/payments');
+const { paymentSchema } = require('../models/payments');
 
 import {
     requireAuth,
@@ -12,6 +12,7 @@ import {
     NotFoundError
 } from 'tickets/common';
 import { Order } from '../models/order';
+import { stripe } from '../stripe'; 
 
 const router = express.Router();
 

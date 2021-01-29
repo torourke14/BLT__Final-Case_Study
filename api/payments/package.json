@@ -15,6 +15,7 @@
     "express": "^4.17.1",
     "mongoose": "^5.11.13",
     "mongoose-update-if-current": "^1.4.0",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "stripe": "^8.132.0"
   }
 }
