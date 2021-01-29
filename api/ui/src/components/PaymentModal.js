@@ -34,7 +34,7 @@ const PaymentModal = (props) => {
     <div>
       <Button size="md" color="primary" onClick={toggle}>  Purchase  </Button>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Enter your payment information to purchase ticket {ticket.id} </ModalHeader>
+        <ModalHeader toggle={toggle}>Enter your payment information to purchase the {ticket.title} ticket </ModalHeader>
         <ModalBody>
             <Form onSubmit = {handleSubmit}>
                 <FormGroup>
@@ -43,7 +43,7 @@ const PaymentModal = (props) => {
                 </FormGroup>
                 <FormGroup>
                     <Label>Expiration</Label>
-                    <Input type="month" placeholder="10/08/1996" onChange = {(e) => setExp(e.target.value)} />
+                    <Input type="month" onChange = {(e) => setExp(e.target.value)} />
                 </FormGroup>
                 <Button disabled = {!validateForm()}>Submit</Button>
             </Form>

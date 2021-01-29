@@ -10,7 +10,7 @@ function Confirmation(props) {
       } = props;
     return (
         <div>
-            <h1>Your order for ticket has been submitted for processing</h1>
+            <h1>Your order has been submitted for processing</h1>
             <Link to = "/">
                 <Button>Back to Tickets</Button>
             </Link>
