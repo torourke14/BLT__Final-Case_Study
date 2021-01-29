@@ -61,7 +61,8 @@ app.post('/api/tickets', [
     const { title, price } = req.body;
     const ticket = new Ticket({
         title,
-        price
+        price,
+        userId: "[Placeholder]"
     });
     await ticket.save();
 
@@ -70,7 +71,8 @@ app.post('/api/tickets', [
         data: {
         ticketId: ticket.id,
         title,
-        price
+        price,
+        userId: ticket.userId
         }
     });
 
@@ -108,12 +110,17 @@ app.put('/api/tickets/:id', [
         res.status(201).send('Cannot edit a reserved ticket'); 
         return;
     }
+    if (ticket.userId != "[Placeholder]") {
+        res.status(201).send('User does not have permission to edit'); 
+        return;
+    }
 
     // Retrieve input and set on ticket
     const { title, price } = req.body;
     ticket.set({
         title,
         price,
+        userId: "[Placeholder]"
     });
     await ticket.save();
 
@@ -122,7 +129,8 @@ app.put('/api/tickets/:id', [
         data: {
         ticketId: ticket.id,
         title,
-        price
+        price,
+        userId: ticket.userId
         }
     });
 
@@ -151,6 +159,7 @@ app.post('/events', async (req, res) => {
             ticketId, 
             title: ticket.title,
             price: ticket.price,
+            userId: ticket.userId,
             orderId
         }
         });
@@ -170,7 +179,8 @@ app.post('/events', async (req, res) => {
         data: {
             ticketId, 
             title: ticket.title,
-            price: ticket.price
+            price: ticket.price,
+            userId: ticket.userId
         }
         });
     }
