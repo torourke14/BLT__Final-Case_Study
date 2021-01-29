@@ -1,18 +1,47 @@
+import express, { Request, Response } from 'express';
+import { body } from 'express-validator';
 const router = require('express').Router();
 const { paymentSchhema } = require('../models/payments');
 
-router.get('/api/payments', async (req, res, next) => {
-    console.log("payment endpoint!")
-    try {
-        const payments = await paymentSchhema();
+import {
+    requireAuth,
+    NotAuthorizedError,
+    OrderStatus,
+    validateRequest,
+    BadRequestError,
+    NotFoundError
+} from 'tickets/common';
+import { Order } from '../models/order';
 
-        res.status(200).send({
-            payments: payments,
-            successStatues: true,
-        })
-    } catch (err) {
-        console.log("Error: ", err);
-        next();
+const router = express.Router();
+
+router.post('/api/payments', 
+    requireAuth,
+    [
+        body('token')
+        .not()
+        .isEmpty(),
+        validateRequest,
+    ], 
+async (req, res, next) => {
+    console.log("payment endpoint!")
+        const {token, orderId } = req.body;
+
+        const order = await Order.findByID(orderID);
+
+        if (!order) {
+            throw new NotFoundError();
+        }
+        if (order.userId !== currentUser.id) {
+            throw new NotAuthorizedError();
+        }
+        if (order.status === OrderStatus.Cancelled){
+            throw new BadRequestError('Cannot pay for an Cancelled order.');
+        }
+
+        res.send({ sucesss: true });
     }
-})
-module.exports = router;
+);
+
+
+export { router as createChargeRouter };
