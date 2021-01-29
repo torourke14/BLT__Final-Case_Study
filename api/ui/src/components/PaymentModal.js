@@ -18,13 +18,11 @@ const PaymentModal = (props) => {
 
 		//BACKEND - creating a new order goes here
 		console.log(cc, exp);
-
-
-        history.push("/confirmation")
+      history.push("/confirmation")
 	}
 
 	const validateForm = () => {
-		return cc.length==19 && exp;
+		return cc.length==16 && exp;
 	}
 
 
