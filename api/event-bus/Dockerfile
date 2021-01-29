@@ -1,9 +1,7 @@
 FROM node:alpine
 
 WORKDIR /app
-ENV MONGO_USER=root \
-    MONGO_PW=letmein12345 \
-    MONGO_EVENTS=events-db
+
 COPY package.json ./
 RUN npm install
 COPY ./ ./

@@ -1,41 +1,71 @@
-version: '3'
+version: '3.8'
 services:
-  auth-srvc:
-    image: ""
-    container_name: 
+  event-bus-srvc:
+    build: ./event-bus
+    image: 101497/event-bus:latest
+    environment:
+      - MONGO_USER: 'root'
+      - MONGO_PW: 'letmein12345'
+      - MONGO_EVENTS: 'events-db'
     ports:
-      - 5432:5432
-  auth-srvc:
-    image: ""
-    container_name: 
+      - 4005:4005
+  orders-srvc:
+    build: ./orders
+    image: 101497/orders:latest
+    environment:
+      - MONGO_USER: 'root'
+      - MONGO_PW: 'letmein12345'
+      - MONGO_ORDERS_DB: 'orders-db'
     ports:
-      - 5432:5432
-  auth-srvc:
-    image: ""
-    container_name: 
+      - 4000:4000
+  payments-srvc:
+    build: ./payments
+    image: 101497/payments:latest
+    environment:
+      - MONGO_USER: 'root'
+      - MONGO_PW: 'letmein12345'
+      - MONGO_PAYMENTS_DB: 'payments-db'
     ports:
-      - 5432:5432
-  auth-srvc:
-    image: ""
-    container_name: 
+      - 4002:4002
+  tickets-srvc:
+    build: ./tickets
+    image: build: ./paymentstickets:latest
+    environment:
+      - MONGO_USER: 'root'
+      - MONGO_PW: 'letmein12345'
+      - MONGO_TICKETS_DB: 'tickets-db'
     ports:
-      - 5432:5432
-  auth-srvc:
-    image: ""
-    container_name: 
+      - 4001:4001
+  moderation-srvc:
+    build: ./moderation
+    image: build: ./paymentsmoderation:latest
     ports:
-      - 5432:5432
-  web:
+      - 4003:4003
+  auth-srvc:
+    build: ./auth
+    image: 101497/auth:latest
+    environment:
+      - MONGO_USER: 'root'
+      - MONGO_PW: 'letmein12345'
+      - MONGO_MAIN: 'ticket-shop'
+    ports:
+      - 5000:5000
+  query-srvc:
+    build: ./query
+    image: 101497/query:latest
+    environment:
+      - MONGO_USER: 'root'
+      - MONGO_PW: 'letmein12345'
+      - MONGO_MAIN: 'ticket-shop'
+    ports:
+      - 3500:3500
+    healthcheck:
+      test: exit 0
+  client-srvc:
     build: ./ui
-    container_name: react-container
+    image: 101497/client:latest
     ports:
-      - 8080:8080
-    links:
-      - node-api
-  mobile:
-    build: ./native-ui
-    container_name: mobile-container
-    ports:
-      - 4040:80
-    links:
-      - node-api
+      - 3000:3000
+    healthcheck:
+      test: exit 0
+  

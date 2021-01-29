@@ -19,7 +19,7 @@ mongoose.connect(db_url, {
     useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true 
 });
 app.locals.db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error'));
+app.locals.db.on('error', console.error.bind(console, 'MongoDB connection error'));
 
 
 /*
@@ -198,15 +198,19 @@ app.post('/events', (req, res) => {
 *   Description: Get details about a specific order
 */
 app.get('/orders/:id', (req, res) => {
-    var order = db.payments.find({
+    var order = app.locals.db.orders.find({
         "_id": req.body.orderId
     });
-    var ticket = db.tickets.find({
+    var ticket = app.locals.db.tickets.find({
         "orderId": req.body.orderId
     });
 
     res.send({
-        userId: order
+        userId: ticket.title,
+        price: ticket.price,
+        userId: "????????",
+        status: order.status,
+        expiresAt: order.expiresAt
     });
 });
 

@@ -7,12 +7,13 @@
 - 4000: orders service -- /orders/create
 - 4001: tickets service -- /tickets
 - 4002: payments service -- /payments
-- 4003: expiration service -- /expiration
+- 4003: moderation service -- /moderation
+- 4005: event-bus service --/events
 - 5000: auth-service -- /auth
 
 # Docker & Kubernetes commands
-- Is Docker desktop is installed, and enabled Kubernetes is checked
-- Is kubectl.exe added toyour system PATH?
+- Is Docker desktop is installed? Is Kubernetes checked?
+- Is kubectl.exe added to your system Path variable?
 
 ### Build & Run Docker Images
 - FOR EACH SERVICE

@@ -11,7 +11,6 @@ spec:
       http:
         paths:
           - path: /auth
-            pathType: Exact
             backend:
               serviceName: auth-clusterip-svc
               servicePort: 5000
@@ -36,7 +35,7 @@ spec:
             backend:
               serviceName: payments-clusterip-svc
               servicePort: 4002
-          - path: /expiration
+          - path: /moderation
             backend:
               serviceName: moderation-clusterip-svc
               servicePort: 4003
